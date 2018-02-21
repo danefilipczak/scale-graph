@@ -1,7 +1,43 @@
 <html>
 <head>
 <script src="scalegraph.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="app.js"></script>
+
 </head>
 <body>
+<div class="app">
+	<ul>
+		<li v-for="scale in scales">
+			{{scale.root}}{{scale.type}}
+			
+			<select v-model="scale.root">
+				<option disabled value="">root</option>
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+			</select>
+			<select v-model="scale.type">
+				<option disabled value="">type</option>
+				<option>dia</option>
+				<option>hm</option>
+				<option>HM</option>
+				<option>oct</option>
+				<option>wt</option>
+				<option>ac</option>
+				<option>hex</option>
+			</select>
+		</li>
+	</ul>
+</div>
 </body>
 </html>

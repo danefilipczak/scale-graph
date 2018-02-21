@@ -3,6 +3,10 @@ function Scale(root_, type_) {
 	this.root = root_;
 	this.type = type_;
 	this.linkedTo = [];
+
+	//for searching
+	this.parent = null;
+	this.visited = false;
 }
 
 var scaleIndices = { //for reference.... 
@@ -146,7 +150,7 @@ function Graph() {
 			}
 			//four connections to hm scales, each a fifth above the transpositional root
 			for(var j = 0; j<4; j++){
-				var hm = self.scales[(i+5+(j*3))%12][scaleIndices['hm']]
+				var hm = self.scales[(i+7+(j*3))%12][scaleIndices['hm']]
 				current.linkedTo.push(hm)
 			}
 			//four connections to HM scales, each a whole step above the transpositional root
@@ -182,6 +186,52 @@ function Graph() {
 
 
 
-Graph.prototype.getPath = function(scale1, scale2) {
+Graph.prototype.getPath = function(start, end) {
+	//return an array of chords that represents the shortest path between two chords.
+	var queue = [];
+	start.visited = true;
+	queue.push(start)
+	while(queue.length>0){
+		var current = queue.shift()
+		if(current == end){
+			//found it
+			break;
+		}
+		var linkedTo = current.linkedTo;
+		for(var i = 0; i< linkedTo.length; i++){
+			var neighbor = linkedTo[i];
+			if(!neighbor.visited){
+				neighbor.visited = true;
+				neighbor.parent = current;
+				queue.push(neighbor)
+
+			}
+		}
+	}
+	var path = []
+	path.push(end)
+	var next = end.parent;
+	while(next != null){
+		path.push(next);
+		next = next.parent;
+	}
+
+	//null out all the parents and visited
+	this.scales.forEach(function(c){
+		c.parent = null;
+		c.visited = false;
+	})
+
+	
+	return path.reverse()
 
 }
+
+
+
+g = new Graph()
+s1 = g.scales[0][0]
+s2 = g.scales[1][6]
+console.log(s1)
+console.log(s2)
+console.log(g.getPath(s1, s2))
