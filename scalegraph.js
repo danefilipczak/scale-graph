@@ -186,8 +186,10 @@ function Graph() {
 
 
 
-Graph.prototype.getPath = function(start, end) {
+Graph.prototype.BFS = function(start_, end_) {
 	//return an array of chords that represents the shortest path between two chords.
+	var start = start_;
+	var end = end_;
 	var queue = [];
 	start.visited = true;
 	queue.push(start)
@@ -227,11 +229,36 @@ Graph.prototype.getPath = function(start, end) {
 
 }
 
+Graph.prototype.getPath=function(array){
+	//return a path that represents the shortest route through the scales contained in array.
+	// each scale represented by an object { root: int, type: string}
+	// array.forEach(function(s){
+	// 	console.log(s.root)
+	// })
+	//check modulo
+	array.forEach(function(s){
+		switch(s.type){
+			case 'hex':
+				s.root = s.root%4;
+				break;
+			case 'oct':
+				s.root = s.root%3;
+				break;
+			case 'wt':
+				s.root = s.root%2;
+				break;
+		}
+	})
+
+	var s0 = this.scales[array[0].root][scaleIndices[array[0].type]]
+	var s1 = this.scales[array[1].root][scaleIndices[array[1].type]]
+	return this.BFS(s0, s1)
+}
 
 
-g = new Graph()
-s1 = g.scales[0][0]
-s2 = g.scales[1][6]
-console.log(s1)
-console.log(s2)
-console.log(g.getPath(s1, s2))
+// g = new Graph()
+// s1 = g.scales[0][0]
+// // s2 = g.scales[1][6]
+// console.log(s1)
+// console.log(s2)
+// console.log(g.getPath(s1, s2))

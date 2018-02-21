@@ -11,7 +11,7 @@
 		<li v-for="scale in scales">
 			{{scale.root}}{{scale.type}}
 			
-			<select v-model="scale.root">
+			<select v-model="scale.root" v-on:change="isEntryComplete">
 				<option disabled value="">root</option>
 				<option>0</option>
 				<option>1</option>
@@ -26,7 +26,7 @@
 				<option>10</option>
 				<option>11</option>
 			</select>
-			<select v-model="scale.type">
+			<select v-model="scale.type" v-on:change="isEntryComplete">
 				<option disabled value="">type</option>
 				<option>dia</option>
 				<option>hm</option>
@@ -38,6 +38,9 @@
 			</select>
 		</li>
 	</ul>
+	<button v-if="isEntryComplete()" v-on:click="getPath">
+	get path
+	</button>
 </div>
 </body>
 </html>
