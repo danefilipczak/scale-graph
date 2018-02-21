@@ -48,6 +48,7 @@ function Graph() {
 
 	this.link = function() {
 		
+		//first, all the non-symetrical scales (all those with 12 distinct transpositions)
 		for(var i = 0; i <12; i++){
 			
 			/*
@@ -87,7 +88,87 @@ function Graph() {
 			var wholestepac = self.scales[(i+10)%12][scaleIndices['ac']];
 			current.linkedTo.push(wholestepac);
 			wholestepac.linkedTo.push(current);
+			//one connection to an octatonic that lies a whole step below, mod 3 because there are only 3 distinct octatonics
+			var wholestepoct = self.scales[(i+10)%3][scaleIndices['oct']];
+			current.linkedTo.push(wholestepoct);
+			//one connection to a parallel hexatonic, mod 4.  because there are only 4 distinct hexatonics
+			var parallelhex = self.scales[i%4][scaleIndices['hex']];
+			current.linkedTo.push(parallelhex);
+			
 
+			/* 
+				harmonic minor
+			*/
+
+			var current = self.scales[i][scaleIndices['hm']];
+			//one connection to an acoustic that lies a fourth above
+			var fourthAbove = self.scales[(i+5)%12][scaleIndices['ac']];
+			current.linkedTo.push(fourthAbove);
+			fourthAbove.linkedTo.push(current);
+			//one connection to an octatonic that lies a perfect fourth above, mod 3 because there are only 3 distinct octatonics
+			var fourthAbove = self.scales[(i+5)%3][scaleIndices['oct']];
+			current.linkedTo.push(fourthAbove);
+			//one connection to a parallel hexatonic, mod 4.  because there are only 4 distinct hexatonics
+			var parallelhex = self.scales[i%4][scaleIndices['hex']];
+			current.linkedTo.push(parallelhex)
+
+			/* 
+				acoustic
+				connections to diatonic and hm/HM were taken care of in their respective sections
+			*/
+			var current = self.scales[i][scaleIndices['ac']];
+			//one connection to a parallel whole tone (mod 2 because there are only 2 distinct whole tone roms)
+			var parallelwt = self.scales[i%2][scaleIndices['wt']];
+			current.linkedTo.push(parallelwt);
+			//one connection to a parallel octatonic (mod 3 because there are only 3 distinct octatonics)
+			var paralleloct = self.scales[i%3][scaleIndices['oct']];
+			current.linkedTo.push(paralleloct);
+
+		}
+
+		//two distinct whole tones
+		for(var i = 0; i<2; i++){
+			var current = self.scales[i][scaleIndices['wt']];
+			//six connections to acoustic scales parallel to each of its tones (j*2 gives whole tones)
+			for(var j = 0; j<6; j++){
+				var acoustic = self.scales[i+(j*2)][scaleIndices['ac']];
+				current.linkedTo.push(acoustic)
+			}
+		}
+
+		//three distinct octatonics
+		for(var i = 0; i<3; i++){
+			var current = self.scales[i][scaleIndices['oct']];
+			//four connections to parallel acoustic scales 
+			for(var j = 0; j<4; j++){
+				var acoustic = self.scales[i+(j*3)][scaleIndices['ac']]
+				current.linkedTo.push(acoustic)
+			}
+			//four connections to hm scales, each a fifth above the transpositional root
+			for(var j = 0; j<4; j++){
+				var hm = self.scales[(i+5+(j*3))%12][scaleIndices['hm']]
+				current.linkedTo.push(hm)
+			}
+			//four connections to HM scales, each a whole step above the transpositional root
+			for(var j = 0; j<4; j++){
+				var HM = self.scales[(i+2+(j*3))%12][scaleIndices['HM']]
+				current.linkedTo.push(HM)
+			}
+		}
+
+		//four distinct hexatonics
+		for(var i =0; i<4; i++){
+			var current = self.scales[i][scaleIndices['hex']];
+			//3 connections to parallel hm
+			for(var j = 0; j<3; j++){
+				var hm = self.scales[(i+(j*4))%12][scaleIndices['hm']]
+				current.linkedTo.push(hm)
+			}
+			//3 connections to parallel HM
+			for(var j = 0; j<3; j++){
+				var HM = self.scales[(i+(j*4))%12][scaleIndices['HM']]
+				current.linkedTo.push(HM)
+			}
 		}
 
 
