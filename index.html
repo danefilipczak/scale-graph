@@ -1,46 +1,60 @@
 <html>
 <head>
+<script src="libs/p5.min.js"></script>
 <script src="scalegraph.js"></script>
+<script src="sketch.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 <script src="app.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
 <body>
 <div class="app">
-	<ul>
-		<li v-for="scale in scales">
-			{{scale.root}}{{scale.type}}
-			
-			<select v-model="scale.root" v-on:change="isEntryComplete">
-				<option disabled value="">root</option>
-				<option>0</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-				<option>5</option>
-				<option>6</option>
-				<option>7</option>
-				<option>8</option>
-				<option>9</option>
-				<option>10</option>
-				<option>11</option>
-			</select>
-			<select v-model="scale.type" v-on:change="isEntryComplete">
-				<option disabled value="">type</option>
-				<option>dia</option>
-				<option>hm</option>
-				<option>HM</option>
-				<option>oct</option>
-				<option>wt</option>
-				<option>ac</option>
-				<option>hex</option>
-			</select>
-		</li>
-	</ul>
-	<button v-if="isEntryComplete()" v-on:click="getPath">
-	get path
-	</button>
+	<header id="navigation">
+		<span v-bind:class="{ selectedTab: section=='scales' }" class = "tab" v-on:click="section='scales'">scales</span>
+		<span v-bind:class="{ selectedTab: section=='triads' }" class = "tab" v-on:click="section='triads'"> triads</span>
+		<span v-bind:class="{ selectedTab: section=='seventh chords' }" class = "tab" v-on:click="section='seventh chords'">7<sup>th</sup> chords</span>
+	</header>
+	<section v-show="section=='scales'" id="scales" class = "section">
+		<div class="float">
+			<ol>
+				<li v-for="scale in scales">
+					<!-- {{scale.root}}{{scale.type}} -->
+					
+					<select v-model="scale.root" v-on:change="isEntryComplete">
+						<option disabled value="root">root</option>
+						<option value = 0>C</option>
+						<option value = 1>C&#9839;</option>
+						<option value = 2>D</option>
+						<option value = 3>D&#9839;</option>
+						<option value = 4>E</option>
+						<option value = 5>F</option>
+						<option value = 6>F&#9839;</option>
+						<option value = 7>G</option>
+						<option value = 8>G&#9839;</option>
+						<option value = 9>A</option>
+						<option value = 10>B&#9837;</option>
+						<option value = 11>B</option>
+					</select>
+					<select v-model="scale.type" v-on:change="isEntryComplete">
+						<option disabled value="">type</option>
+						<option value = "dia">diatonic</option>
+						<option value = "hm">harmonic minor</option>
+						<option value = "HM">harmonic major</option>
+						<option value = "oct">octatonic</option>
+						<option value = "wt">whole tone</option>
+						<option value = "ac">acoustic</option>
+						<option value = "hex">hexatonic</option>
+					</select>
+					<button class = "editButton" v-on:click="addScale(scale)">+</button>
+					<button class = "editButton" v-if="scales.length>2" v-on:click="removeScale(scale)">&#128465;</button>
+				</li>
+			</ol>
+			<button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
+			get path
+			</button>
+		</div>
+	</section>
 </div>
 </body>
 </html>

@@ -4,6 +4,7 @@ window.onload = function(){
 
 var app = new Vue({
 	data: {
+		section: 'scales',
 		scales: [{
 
 			root: null,
@@ -38,9 +39,32 @@ var app = new Vue({
 			}
 			return true;
 		},
+		// tranlate: function(){
+		// 	var roots = {
+		// 		'A'
+		// 	}
+		// 	var types = {}
+		// 	var translation = [];
+		// 	this.scales.forEach(function(s){
+		// 		translation.push({
+		// 			root:roots[s.root],
+		// 			type:types[s.type]
+		// 		})
+		// 	})
+		// 	return translation;
+		// }
 		getPath: function(){
 			var g = new Graph()
 			console.log(g.getPath(this.scales))
+		},
+		addScale: function(previousScale){
+			//add a new scale
+			var index = this.scales.indexOf(previousScale)+1;
+			this.scales.splice(index, 0, {root:null, type:null})
+		},
+		removeScale: function(scale){
+			var index = this.scales.indexOf(scale);
+			this.scales.splice(index, 1)
 		}
 		// addScale: function() {
 		// 	var pitchclass = this.pitchclass && this.newTodo.trim()
