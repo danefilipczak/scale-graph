@@ -1,4 +1,5 @@
 var canvas
+var pianoRoll
 
 function setup(){
 	canvas = createCanvas(window.innerWidth,window.innerHeight);
@@ -6,14 +7,16 @@ function setup(){
 	canvas.elt.style.position = 'fixed'
 	canvas.elt.style.left=0
 	canvas.elt.style.top=0
+	pianoRoll = new PianoRoll()
 }
 
 function draw(){
 	background('olive')
-	fill('cyan')
-	ellipse(width/2, height/2, 50, 50)
-	fill('orange')
-	ellipse(width/2, height/2+50, 50, 50)
+	// fill('cyan')
+	// ellipse(width/2, height/2, 50, 50)
+	// fill('orange')
+	// ellipse(width/2, height/2+50, 50, 50)
+	pianoRoll.draw()
 }
 
 function windowResized(){
