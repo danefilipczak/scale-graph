@@ -1,6 +1,7 @@
 var canvas
 var pianoRoll
 var scaleWheel
+var from, to;
 
 function setup(){
 	canvas = createCanvas(window.innerWidth,window.innerHeight);
@@ -10,6 +11,12 @@ function setup(){
 	canvas.elt.style.top=0
 	pianoRoll = new PianoRoll()
 	scaleWheel = new ScaleWheel()
+
+	// from = color(218, 165, 32);
+	// to = color(72, 61, 139);
+
+	from = color('cyan');
+	to = color('orange');
 }
 
 function draw(){

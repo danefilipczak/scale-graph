@@ -16,15 +16,20 @@ function PianoRoll() {
 	this.drawBase = function(){
 		var w = 30;
 		var bottom = window.innerHeight / 2 + (w * 6)
-		noStroke()
+		//noStroke()
 		for(var i = 0; i < 12; i++){
 			if(i==1||i==3||i==6||i==8||i==10){
-				fill(100)
+				//fill(100)
+				stroke(100)
 			} else {
-				fill(150)
+				//fill(150)
+				stroke(150)
 			}
 			var margin = 20
-			rect(window.innerWidth/3+margin, bottom-(i*w), window.innerWidth/3-margin, w)
+			noFill()
+			var weight = 7;
+			strokeWeight(weight)
+			rect(window.innerWidth/3+margin, bottom-(i*w), window.innerWidth/3-margin, w-(weight))
 		}
 
 	}
@@ -38,19 +43,28 @@ function PianoRoll() {
 
 			var scale = this.scales[i].chroma;
 			for (var j = 0; j < scale.length; j++) {
+				var lerp = lerpColor(from, to, 1/(this.scales.length-1)*i)
+				var weight = 5
+				strokeWeight(weight)
+				
 				if(scale[j]==0||scale[j]==2||scale[j]==4||scale[j]==5||scale[j]==7||scale[j]==9||scale[j]==11){
-					stroke('black')
-					fill(250);
-				} else {
+					//stroke('black')
 					stroke('white')
+					fill(250);
+
+				} else {
+					//stroke('white')
+					stroke('black')
 					fill(10);
 				}
 				if(scale[j]==this.scales[i].root){
-					stroke('black')
+					//stroke('black')
 					//noStroke()
-					fill('cyan')
+					fill(lerp)
+				} else {
+					stroke(lerp)
 				}
-				rect(left + (w * i), bottom - scale[j] * w, w, w)
+				rect(left + (w * i), bottom - scale[j] * w, w-weight, w-weight)
 			}
 
 		}
