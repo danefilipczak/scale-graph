@@ -1,5 +1,6 @@
 var canvas
 var pianoRoll
+var scaleWheel
 
 function setup(){
 	canvas = createCanvas(window.innerWidth,window.innerHeight);
@@ -8,6 +9,7 @@ function setup(){
 	canvas.elt.style.left=0
 	canvas.elt.style.top=0
 	pianoRoll = new PianoRoll()
+	scaleWheel = new ScaleWheel()
 }
 
 function draw(){
@@ -16,7 +18,9 @@ function draw(){
 	// ellipse(width/2, height/2, 50, 50)
 	// fill('orange')
 	// ellipse(width/2, height/2+50, 50, 50)
-	pianoRoll.draw()
+	pianoRoll.drawBase()
+	pianoRoll.drawChroma()
+	scaleWheel.draw()
 }
 
 function windowResized(){
