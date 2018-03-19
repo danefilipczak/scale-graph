@@ -1,17 +1,24 @@
+function Chroma() {
+
+}
+
+var arp = {scale:0, step:0, chroma:0}
 function PianoRoll() {
-	this.scales = [{
-		root: 0,
-		type: 'dia',
-		chroma: [0, 2, 4, 5, 7, 9, 11]
-	},{
-		root: 0,
-		type: 'HM',
-		chroma: [0, 2, 4, 5, 7, 8, 11]
-	},{
-		root: 0,
-		type: 'hm',
-		chroma: [0, 2, 3, 5, 7, 8, 11]
-	}]
+	// this.scales = [{
+	// 	root: 0,
+	// 	type: 'dia',
+	// 	chroma: [0, 2, 4, 5, 7, 9, 11]
+	// },{
+	// 	root: 0,
+	// 	type: 'HM',
+	// 	chroma: [0, 2, 4, 5, 7, 8, 11]
+	// },{
+	// 	root: 0,
+	// 	type: 'hm',
+	// 	chroma: [0, 2, 3, 5, 7, 8, 11]
+	// }]
+	this.autostep = true;
+	this.scales = [];
 	this.name = 'ted'
 	this.drawBase = function(){
 		var w = 30;
@@ -64,9 +71,46 @@ function PianoRoll() {
 				} else {
 					stroke(lerp)
 				}
+				if(i==arp.scale&&scale[j]==arp.chroma){
+					fill('yellow')
+					stroke('yellow')
+				}
 				rect(left + (w * i), bottom - scale[j] * w, w-weight, w-weight)
 			}
 
 		}
+	}
+}
+
+PianoRoll.prototype.startArpegiator = function(){
+	var self = this;
+	setInterval(function(){ self.step(); }, 300);
+}
+
+PianoRoll.prototype.step = function(){
+	if(this.autostep){
+		
+		
+
+		
+
+
+		arp.step++;
+		arp.step%=this.scales[arp.scale].chroma.length;
+
+		
+		// arp.scale++
+		// console.log(this.scales[arp.scale].length)
+		if(arp.step==0){
+			console.log('hi change')
+			arp.scale++
+			arp.scale%=this.scales.length;
+		}
+
+		arp.chroma=this.scales[arp.scale].chroma[arp.step]
+		
+
+
+		
 	}
 }

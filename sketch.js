@@ -2,7 +2,7 @@ var canvas
 var pianoRoll
 var scaleWheel
 var from, to;
-
+var arpSpeed = 20;
 function setup(){
 	canvas = createCanvas(window.innerWidth,window.innerHeight);
 	canvas.elt.style.zIndex =0
@@ -20,7 +20,7 @@ function setup(){
 }
 
 function draw(){
-	background('olive')
+	background(240, 234, 234)
 	// fill('cyan')
 	// ellipse(width/2, height/2, 50, 50)
 	// fill('orange')
@@ -28,6 +28,9 @@ function draw(){
 	pianoRoll.drawBase()
 	pianoRoll.drawChroma()
 	scaleWheel.draw()
+	if(frameCount%arpSpeed==0&&pianoRoll.scales.length>0){
+		pianoRoll.step();
+	}
 }
 
 function windowResized(){

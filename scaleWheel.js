@@ -1,19 +1,20 @@
 function ScaleWheel() {
 
 
-	this.scales = [{
-		root: 0,
-		type: 'dia',
-		chroma: [0, 2, 4, 5, 7, 9, 11]
-	}, {
-		root: 0,
-		type: 'HM',
-		chroma: [0, 2, 4, 5, 7, 8, 11]
-	}, {
-		root: 0,
-		type: 'hm',
-		chroma: [0, 2, 3, 5, 7, 8, 11]
-	}]
+	// this.scales = [{
+	// 	root: 0,
+	// 	type: 'dia',
+	// 	chroma: [0, 2, 4, 5, 7, 9, 11]
+	// }, {
+	// 	root: 0,
+	// 	type: 'HM',
+	// 	chroma: [0, 2, 4, 5, 7, 8, 11]
+	// }, {
+	// 	root: 0,
+	// 	type: 'hm',
+	// 	chroma: [0, 2, 3, 5, 7, 8, 11]
+	// }]
+	this.scales = [];
 
 	this.draw = function() {
 		this.center = createVector(20, 20)

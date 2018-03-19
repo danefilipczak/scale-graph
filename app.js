@@ -55,7 +55,11 @@ var app = new Vue({
 		// }
 		getPath: function(){
 			var g = new Graph()
-			console.log(g.getPath(this.scales))
+			var path = g.getPath(this.scales.slice(0, this.scales.length));
+			console.log(path)
+			pianoRoll.scales = path;
+			scaleWheel.scales = path;
+
 		},
 		addScale: function(previousScale){
 			//add a new scale
