@@ -34,10 +34,12 @@ var app = new Vue({
 		isEntryComplete: function(){
 			for(var i =0;i<this.scales.length;i++){
 				if(!this.scales[i].root || !this.scales[i].type){
+					console.log(this.scales[i].root)
 					return false
 				}
 			}
 			return true;
+
 		},
 		// tranlate: function(){
 		// 	var roots = {
@@ -59,6 +61,10 @@ var app = new Vue({
 			console.log(path)
 			pianoRoll.scales = path;
 			scaleWheel.scales = path;
+			tile.scales = path;
+			arp.step=0;
+			arp.chroma=0;
+			arp.scale=0;
 
 		},
 		addScale: function(previousScale){

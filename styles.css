@@ -8,6 +8,12 @@ body{
 	z-index:3;
 }*/
 
+
+.float{
+	position:fixed;
+	top:33%;
+}
+
 .actionButton{
 	width:200px;
 	font-size:40px;

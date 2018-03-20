@@ -1,6 +1,7 @@
 var canvas
 var pianoRoll
 var scaleWheel
+var tile
 var from, to;
 var arpSpeed = 20;
 function setup(){
@@ -11,6 +12,7 @@ function setup(){
 	canvas.elt.style.top=0
 	pianoRoll = new PianoRoll()
 	scaleWheel = new ScaleWheel()
+	tile = new Tile();
 
 	// from = color(218, 165, 32);
 	// to = color(72, 61, 139);
@@ -25,6 +27,7 @@ function draw(){
 	// ellipse(width/2, height/2, 50, 50)
 	// fill('orange')
 	// ellipse(width/2, height/2+50, 50, 50)
+	tile.draw()
 	pianoRoll.drawBase()
 	pianoRoll.drawChroma()
 	scaleWheel.draw()

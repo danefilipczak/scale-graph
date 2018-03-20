@@ -23,6 +23,7 @@ function PianoRoll() {
 	this.drawBase = function(){
 		var w = 30;
 		var bottom = window.innerHeight / 2 + (w * 6)
+		// var bottom = window.innerHeight-window.innerHeight/6;
 		//noStroke()
 		for(var i = 0; i < 12; i++){
 			if(i==1||i==3||i==6||i==8||i==10){
@@ -47,6 +48,7 @@ function PianoRoll() {
 			var w = 30;
 			var left = window.innerWidth / 2 - (w * this.scales.length / 2);
 			var bottom = window.innerHeight / 2 + (w * 6)
+			// var bottom = window.innerHeight;
 
 			var scale = this.scales[i].chroma;
 			for (var j = 0; j < scale.length; j++) {
