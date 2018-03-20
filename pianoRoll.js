@@ -111,7 +111,9 @@ PianoRoll.prototype.step = function(){
 
 		arp.chroma=this.scales[arp.scale].chroma[arp.step]
 		
-
+		var map = ['C4', 'Db4', 'D4', 'Eb4','E4', 'F4', 'Gb4', 'G4', 'Ab4', 'A4', 'Bb4', 'B4']
+		var note = map[arp.chroma]
+		synth.triggerAttackRelease(note, "8n");
 
 		
 	}

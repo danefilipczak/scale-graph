@@ -4,6 +4,18 @@ var scaleWheel
 var tile
 var from, to;
 var arpSpeed = 20;
+
+
+var synth = new Tone.MonoSynth({
+	"oscillator" : {
+		"type" : "sine"
+ },
+ "envelope" : {
+ 	"attack" : 0.1
+ }
+}).toMaster();
+
+
 function setup(){
 	canvas = createCanvas(window.innerWidth,window.innerHeight);
 	canvas.elt.style.zIndex =0

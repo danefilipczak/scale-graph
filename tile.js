@@ -7,12 +7,13 @@ Tile.prototype.draw = function(){
 	noStroke()
 	fill('black')
 
+	var h = window.innerWidth/this.scales.length/18;
+	textSize(h)
 
-	textSize(window.innerWidth/this.scales.length/20)
 
 
-
-	textAlign(LEFT, TOP)
+	textAlign(CENTER, TOP)
+	rectMode(CENTER)
 	push()
 	translate(0, window.innerHeight/6)
 	for(var i = 0; i<this.scales.length;i++){
@@ -25,9 +26,9 @@ Tile.prototype.draw = function(){
 
 		var w = window.innerWidth/this.scales.length/2
 		
-		rect(x, 0, w, 100)
+		rect(x, 0, w, h*2)
 		fill(0, 50)
-		rect(x, 0, w, 100)
+		rect(x, 0, w, h*2)
 
 		// // console.log(lerp)
 		// if((lerp.levels[0]+lerp.levels[1]+lerp.levels[2])/3<127){
@@ -41,4 +42,5 @@ Tile.prototype.draw = function(){
 	}
 	pop()
 	// text('love u ', 120, 100)
+	rectMode(CORNER)
 }
