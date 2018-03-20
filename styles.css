@@ -7,7 +7,16 @@ body{
 	position:fixed;
 	z-index:3;
 }*/
+#tempo{
+	width:100px;
+}
+#rangeDiv{
+	position:fixed;
+	z-index:2;
+	left:33%;
+	top:33%;
 
+}
 
 .float{
 	position:fixed;
@@ -17,6 +26,24 @@ body{
 .actionButton{
 	width:200px;
 	font-size:40px;
+}
+
+
+
+#arpControls{
+	z-index:2;
+	position:fixed;
+}
+#playButton{
+	background-color:red;
+	padding:3px;
+	font-size:20px;
+	cursor:pointer;
+	z-index:2;
+	color:black;
+	position:fixed;
+	left:33%;
+	top:33%;
 }
 
 .editButton{

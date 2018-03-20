@@ -15,7 +15,9 @@ var synth = new Tone.MonoSynth({
  }
 }).toMaster();
 
-
+function changeTempo(val){
+	console.log(val)
+}
 function setup(){
 	canvas = createCanvas(window.innerWidth,window.innerHeight);
 	canvas.elt.style.zIndex =0
@@ -43,7 +45,7 @@ function draw(){
 	pianoRoll.drawBase()
 	pianoRoll.drawChroma()
 	scaleWheel.draw()
-	if(frameCount%arpSpeed==0&&pianoRoll.scales.length>0){
+	if(frameCount%arpSpeed==0&&pianoRoll.scales.length>0&&app.arpOn){
 		pianoRoll.step();
 	}
 }

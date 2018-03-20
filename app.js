@@ -4,6 +4,7 @@ window.onload = function(){
 
 var app = new Vue({
 	data: {
+		arpOn: false,
 		section: 'scales',
 		scales: [{
 
@@ -40,6 +41,9 @@ var app = new Vue({
 			}
 			return true;
 
+		},
+		toggleArpOn: function(){
+			this.arpOn = !this.arpOn;
 		},
 		// tranlate: function(){
 		// 	var roots = {
