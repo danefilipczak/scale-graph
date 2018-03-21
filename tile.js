@@ -12,7 +12,7 @@ Tile.prototype.draw = function(){
 
 
 
-	textAlign(CENTER, TOP)
+	textAlign(CENTER, CENTER)
 	rectMode(CENTER)
 	push()
 	translate(0, window.innerHeight/6)
@@ -24,7 +24,7 @@ Tile.prototype.draw = function(){
 		var lerp = lerpColor(from, to, 1 / (this.scales.length - 1) * i)
 		fill(lerp)
 
-		var w = window.innerWidth/this.scales.length/2
+		var w = window.innerWidth/this.scales.length/1.9
 		
 		rect(x, 0, w, h*2)
 		fill(0, 50)
@@ -37,10 +37,45 @@ Tile.prototype.draw = function(){
 		// 	fill('black')
 		// }
 		fill('white')
-		text(this.scales[i].root + this.scales[i].type, x, 0)
+		text(this.translateChord(this.scales[i].root, this.scales[i].type), x, 0)
 		
 	}
 	pop()
 	// text('love u ', 120, 100)
 	rectMode(CORNER)
+
+	this.drawArrows()
+}
+
+Tile.prototype.drawArrows = function(){
+	var h = window.innerWidth/this.scales.length/15;
+	textSize(h)
+	fill(100)
+	push()
+	translate(0, window.innerHeight/6)
+	for(var i = 0; i<this.scales.length-1; i++){
+		var x = window.innerWidth/(this.scales.length+1)*(i+1.5);
+		// rect(x, 0, 10, 10);
+		text('\u2194', x, 0)
+
+	}
+	pop()
+}
+
+Tile.prototype.translateChord = function(root, type){
+	var roots = ['C', 'C\u266F', 'D', 'D\u266F', 'E', 'F', 'F\u266F', 'G', 'G\u266F', 'A', 'A\u266F', 'B'];
+
+	var types = {
+		'dia': 'diatonic',
+		'ac': 'acoustic',
+		'oct': 'octatonic',
+		'hm': 'harmonic minor',
+		'HM': 'harmonic major',
+		'hex': 'hexatonic',
+		'wt': 'whole tone'
+	}
+
+
+	return roots[root] + ' ' + types[type]
+
 }
