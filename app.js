@@ -34,12 +34,13 @@ var app = new Vue({
 	methods: {
 		isEntryComplete: function(){
 			for(var i =0;i<this.scales.length;i++){
-				if(!this.scales[i].root || !this.scales[i].type){
-					console.log(this.scales[i].root)
-					return false
+				if(this.scales[i].root == null || !this.scales[i].type){
+					// console.log(this.scales[i].root)
+					return false;
 				}
 			}
 			return true;
+
 
 		},
 		toggleArpOn: function(){

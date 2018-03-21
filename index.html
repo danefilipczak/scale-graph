@@ -25,7 +25,7 @@
 				<li v-for="scale in scales">
 					<!-- {{scale.root}}{{scale.type}} -->
 					
-					<select v-model="scale.root" v-on:change="isEntryComplete">
+					<select v-model="scale.root" v-on:change="isEntryComplete()">
 						<option disabled value="root">root</option>
 						<option value = 0>C</option>
 						<option value = 1>C&#9839;</option>
@@ -40,7 +40,7 @@
 						<option value = 10>B&#9837;</option>
 						<option value = 11>B</option>
 					</select>
-					<select v-model="scale.type" v-on:change="isEntryComplete">
+					<select v-model="scale.type" v-on:change="isEntryComplete()">
 						<option disabled value="">type</option>
 						<option value = "dia">diatonic</option>
 						<option value = "hm">harmonic minor</option>

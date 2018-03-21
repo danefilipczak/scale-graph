@@ -6,14 +6,14 @@ var from, to;
 var arpSpeed = 20;
 
 
-var synth = new Tone.MonoSynth({
-	"oscillator" : {
-		"type" : "sine"
- },
- "envelope" : {
- 	"attack" : 0.1
- }
-}).toMaster();
+// var synth = new Tone.MonoSynth({
+// 	"oscillator" : {
+// 		"type" : "sine"
+//  },
+//  "envelope" : {
+//  	"attack" : 0.1
+//  }
+// }).toMaster();
 
 function changeTempo(val){
 	console.log(val)
@@ -46,7 +46,7 @@ function draw(){
 	pianoRoll.drawChroma()
 	scaleWheel.draw()
 	if(frameCount%arpSpeed==0&&pianoRoll.scales.length>0&&app.arpOn){
-		pianoRoll.step();
+		// pianoRoll.step();
 	}
 }
 

@@ -73,10 +73,10 @@ function PianoRoll() {
 				} else {
 					stroke(lerp)
 				}
-				if(i==arp.scale&&scale[j]==arp.chroma){
-					fill('yellow')
-					stroke('yellow')
-				}
+				// if(i==arp.scale&&scale[j]==arp.chroma){
+				// 	fill('yellow')
+				// 	stroke('yellow')
+				// }
 				rect(left + (w * i), bottom - scale[j] * w, w-weight, w-weight)
 			}
 
@@ -113,7 +113,7 @@ PianoRoll.prototype.step = function(){
 		
 		var map = ['C4', 'Db4', 'D4', 'Eb4','E4', 'F4', 'Gb4', 'G4', 'Ab4', 'A4', 'Bb4', 'B4']
 		var note = map[arp.chroma]
-		synth.triggerAttackRelease(note, "8n");
+		// synth.triggerAttackRelease(note, "8n");
 
 		
 	}
