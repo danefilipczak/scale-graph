@@ -72,6 +72,19 @@ var app = new Vue({
 			arp.scale=0;
 
 		},
+		makeRandomScales: function(){
+			this.randomScales()
+			this.getPath()
+		}
+		,
+		randomScales: function(){
+			this.scales.forEach(function(s){
+				s.root = Math.round(Math.random()*11)
+				var items = ['oct', 'ac', 'dia', 'wt', 'hex', 'hm', 'HM']
+				s.type = items[Math.floor(Math.random()*items.length)];
+			})
+		}
+		,
 		addScale: function(previousScale){
 			//add a new scale
 			var index = this.scales.indexOf(previousScale)+1;

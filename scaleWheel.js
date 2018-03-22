@@ -20,7 +20,7 @@ function ScaleWheel() {
 		this.center = createVector(20, 20)
 		this.center.x = window.innerWidth / 6 * 5;
 		this.center.y = window.innerHeight / 2;
-		this.radius = window.innerWidth / 6 - 20
+		this.radius = window.innerWidth / 8
 		//fill('white')
 		noFill()
 		strokeWeight(3)

@@ -27,14 +27,15 @@ function PianoRoll() {
 		//noStroke()
 		for(var i = 0; i < 12; i++){
 			if(i==1||i==3||i==6||i==8||i==10){
-				//fill(100)
+				fill(0, 50)
 				stroke(100)
+
 			} else {
-				//fill(150)
+				fill(255, 50)
 				stroke(150)
 			}
 			var margin = 20
-			noFill()
+			// noFill()
 			var weight = 7;
 			strokeWeight(weight)
 			rect(window.innerWidth/3+margin, bottom-(i*w), window.innerWidth/3-margin, w-(weight))

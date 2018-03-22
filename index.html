@@ -15,12 +15,15 @@
 <body>
 <div class="app">
 	<header id="navigation">
-		<span v-bind:class="{ selectedTab: section=='scales' }" class = "tab" v-on:click="section='scales'">scales</span>
+		<span v-bind:class="{ selectedTab: section=='scales' }" class = "tab" v-on:click="section='scales'">macroharmony</span>
 		<span v-bind:class="{ selectedTab: section=='triads' }" class = "tab" v-on:click="section='triads'"> triads</span>
 		<span v-bind:class="{ selectedTab: section=='seventh chords' }" class = "tab" v-on:click="section='seventh chords'">7<sup>th</sup> chords</span>
 	</header>
 	<section v-show="section=='scales'" id="scales" class = "section">
 		<div class="float">
+			<button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
+			voyage
+			</button>
 			<ol>
 				<li v-for="scale in scales">
 					<!-- {{scale.root}}{{scale.type}} -->
@@ -54,9 +57,10 @@
 					<button class = "editButton" v-if="scales.length>2" v-on:click="removeScale(scale)">&#128465;</button>
 				</li>
 			</ol>
-			<button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
-			get path
+			<button class="randomButton"  v-on:click="makeRandomScales">
+			random
 			</button>
+			
 
 			
 		</div>
