@@ -5,6 +5,7 @@
 <script src="tile.js"></script>
 <script src="pianoRoll.js"></script>
 <script src="scaleWheel.js"></script>
+<script src="quartals.js"></script>
 <script src="scalegraph.js"></script>
 <script src="sketch.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
@@ -18,6 +19,8 @@
 		<span v-bind:class="{ selectedTab: section=='scales' }" class = "tab" v-on:click="section='scales'">macroharmony</span>
 		<span v-bind:class="{ selectedTab: section=='triads' }" class = "tab" v-on:click="section='triads'"> triads</span>
 		<span v-bind:class="{ selectedTab: section=='seventh chords' }" class = "tab" v-on:click="section='seventh chords'">7<sup>th</sup> chords</span>
+
+		<span v-bind:class="{ selectedTab: section=='quartals' }" class = "tab" v-on:click="section='quartals'"> Q<i>n</i></span>
 	</header>
 	<section v-show="section=='scales'" id="scales" class = "section">
 		<div class="float">

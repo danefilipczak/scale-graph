@@ -63,7 +63,7 @@ Tile.prototype.drawArrows = function(){
 }
 
 Tile.prototype.translateChord = function(root, type){
-	var roots = ['C', 'C\u266F', 'D', 'D\u266F', 'E', 'F', 'F\u266F', 'G', 'G\u266F', 'A', 'A\u266F', 'B'];
+	var roots = ['C', 'D\u266D', 'D', 'E\u266D', 'E', 'F', 'F\u266F', 'G', 'A\u266D', 'A', 'B\u266D', 'B'];
 
 	var types = {
 		'dia': 'diatonic',
