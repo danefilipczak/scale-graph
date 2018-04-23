@@ -6,8 +6,17 @@ function Scale(root_, type_) {
 
 	//for searching
 	this.parent = null;
+	this.parents = [];
 	this.visited = false;
 	this.initChroma()
+}
+
+Scale.prototype.addParent = function(node){
+	if(node.level==this.level){
+		return;
+	}
+	this.parents.push(node);
+	this.level=node.level+1;
 }
 
 Scale.prototype.initChroma = function() {
@@ -259,6 +268,98 @@ Graph.prototype.BFS = function(start_, end_) {
 
 }
 
+Graph.prototype.dfs = function(end, result, path){
+	path.unshift(end);
+	if(end.parents.length==0){
+		//base case
+		result.push(path);
+		return
+	}
+	end.parents.forEach((p) => {
+		this.dfs(p, result, path)
+	})
+	// for(var i = 0; i<end.parents.length; i++){
+	// 	this.dfs(end.parents[i], result, path)
+	// }
+
+	path.shift();
+
+
+}
+
+
+Graph.prototype.MBFS = function(start_, end_) {
+	//return an array of arrays of chords that represents the shortest path between two chords.
+	// the difference between this method and BFS is that this retrieves all possible shortest paths instead of the path found first. 
+	this.scales.forEach(function(c) {
+		c.forEach(function(s){
+			if(s){
+				s.parent=null;
+				s.visited=null;
+				s.parents = [];
+				s.level=null;
+			}
+
+		})
+		// c.parent = null;
+		// c.visited = false;
+	})
+
+
+	var start = start_;
+	var end = end_;
+	var queue = [];
+	start.visited = true;
+	start.level=0;
+	queue.push(start);
+	while (queue.length > 0) {
+		var current = queue[0];
+		//current.visited=true;
+		if (current == end) {
+			//found it
+			break;
+		}
+		var linkedTo = current.linkedTo;
+		for (var i = 0; i < linkedTo.length; i++) {
+			var neighbor = linkedTo[i];
+			if (!neighbor.visited) {
+				//neighbor.visited = true;
+				
+				if(!queue.includes(neighbor)){
+					queue.push(neighbor)
+				}
+				if(!neighbor.parents.includes(current)){
+					neighbor.addParent(current);
+				}
+				
+
+			}
+		}
+		
+		queue = queue.filter(function(n) { return n !== current })
+		current.visited=true;
+
+	}
+	// var path = []
+	// path.push(end)
+	// var next = end.parent;
+	// while (next != null) {
+	// 	path.push(next);
+	// 	next = next.parent;
+	// }
+	var result = []
+	this.dfs(end, result, []);
+
+	//null out all the parents and visited
+	
+
+	return result;
+	//return path.reverse()
+
+}
+
+
+
 Graph.prototype.getPath = function(array) {
 	//return a path that represents the shortest route through the scales contained in array.
 	// each scale represented by an object { root: int, type: string}
@@ -283,7 +384,7 @@ Graph.prototype.getPath = function(array) {
 
 	var s0 = this.scales[array[0].root][scaleIndices[array[0].type]]
 	var s1 = this.scales[array[1].root][scaleIndices[array[1].type]]
-	return this.BFS(s0, s1)
+	return this.MBFS(s0, s1)
 }
 
 
