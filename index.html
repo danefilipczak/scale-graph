@@ -24,9 +24,10 @@
 	</header>
 	<section v-show="section=='scales'" id="scales" class = "section">
 		<div class="float">
-			<button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
-			voyage
+			<button class="randomButton"  v-on:click="makeRandomScales">
+			random
 			</button>
+			
 			<ol>
 				<li v-for="scale in scales">
 					<!-- {{scale.root}}{{scale.type}} -->
@@ -60,8 +61,10 @@
 					<button class = "editButton" v-if="scales.length>2" v-on:click="removeScale(scale)">&#128465;</button>
 				</li>
 			</ol>
-			<button class="randomButton"  v-on:click="makeRandomScales">
-			random
+			
+
+			<button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
+			voyage
 			</button>
 			
 

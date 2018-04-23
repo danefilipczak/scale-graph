@@ -243,8 +243,15 @@ Graph.prototype.BFS = function(start_, end_) {
 
 	//null out all the parents and visited
 	this.scales.forEach(function(c) {
-		c.parent = null;
-		c.visited = false;
+		c.forEach(function(s){
+			if(s){
+				s.parent=null;
+				s.visited=null;
+			}
+
+		})
+		// c.parent = null;
+		// c.visited = false;
 	})
 
 
@@ -258,6 +265,7 @@ Graph.prototype.getPath = function(array) {
 	// array.forEach(function(s){
 	// 	console.log(s.root)
 	// })
+
 	//check modulo
 	array.forEach(function(s) {
 		switch (s.type) {

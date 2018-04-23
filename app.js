@@ -4,6 +4,7 @@ window.onload = function(){
 
 var app = new Vue({
 	data: {
+		graph: new Graph(),
 		arpOn: false,
 		section: 'scales',
 		scales: [{
@@ -61,8 +62,8 @@ var app = new Vue({
 		// 	return translation;
 		// }
 		getPath: function(){
-			var g = new Graph()
-			var path = g.getPath(this.scales.slice(0, this.scales.length));
+			//var g = new Graph()
+			var path = this.graph.getPath(this.scales.slice(0, this.scales.length));
 			console.log(path)
 			pianoRoll.scales = path;
 			scaleWheel.scales = path;
