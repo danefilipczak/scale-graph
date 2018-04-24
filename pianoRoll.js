@@ -49,7 +49,16 @@ function PianoRoll() {
 
 	}
 	this.drawIntersection = function() {
-
+		var w = 30;
+		//var left = window.innerWidth / 2 - (w * this.scales.length / 2);
+		var bottom = window.innerHeight / 2 + (w * 6)
+		var weight = 5
+		fill('gold')
+		noStroke();
+		//rectMode(CENTER, TOP)
+		for (var i = 0; i < this.intersection.length; i++) {
+			rect(window.innerWidth/2-100, bottom - this.intersection[i] * w, 200, w - weight)
+		}
 	}
 	this.drawChroma = function() {
 		//console.log(this.name)
@@ -83,6 +92,11 @@ function PianoRoll() {
 				// } else {
 				// 	stroke(lerp)
 				// }
+				if(this.intersection.includes(scale[j])){
+					//fill(255, 255, 0, 50)
+				} else {
+					//noFill()
+				}
 
 				stroke(lerp)
 				// if(i==arp.scale&&scale[j]==arp.chroma){
@@ -95,8 +109,9 @@ function PianoRoll() {
 		}
 	}
 	this.draw = function() {
-		this.drawBase()
 		this.drawIntersection()
+		this.drawBase()
+		
 		this.drawChroma()
 	}
 }
