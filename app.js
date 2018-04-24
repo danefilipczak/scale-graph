@@ -4,7 +4,8 @@ window.onload = function(){
 
 var app = new Vue({
 	data: {
-		paths: null,
+		begun: false,
+		paths: [],
 		currentPath: null,
 		graph: new Graph(),
 		arpOn: false,
@@ -42,6 +43,8 @@ var app = new Vue({
 					return false;
 				}
 			}
+			this.getPath();
+			this.begun=true;
 			return true;
 
 
@@ -65,6 +68,11 @@ var app = new Vue({
 		// }
 		selectPath: function(index){
 			this.currentPath = this.paths[index]
+			var chromas = []
+			for(var i = 0; i<this.currentPath.length;i++){
+				chromas.push(this.currentPath[i].chroma)
+			};
+			this.intersection = intersection(chromas);
 			//console.log(index)
 		},
 		getPath: function(){
@@ -73,7 +81,8 @@ var app = new Vue({
 
 			console.log(result)
 			this.paths = result;
-			this.currentPath=result[0];
+			
+			this.selectPath(0);
 			//this.currentPath = result;
 			// pianoRoll.scales = path[0];
 			// scaleWheel.scales = path[0];
@@ -85,7 +94,8 @@ var app = new Vue({
 		},
 		makeRandomScales: function(){
 			this.randomScales()
-			this.getPath()
+			this.isEntryComplete();
+			//this.getPath()
 		}
 		,
 		randomScales: function(){

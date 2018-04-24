@@ -24,21 +24,17 @@
 	</header>
 	<section v-show="section=='scales'" id="scales" class = "section">
 		<div class="float">
-			<div class="paths">
+			<div class="paths" v-show="paths.length>1">
 				<a v-for="(path, index) in paths">
-					<span class="path" v-bind:class="{ selectedPath: paths.indexOf(currentPath) == index }" v-on:click="selectPath(index)">{{index}}</span>
+					<span class="path" v-bind:class="{ selectedPath: paths.indexOf(currentPath) == index }" v-on:click="selectPath(index)">{{index+1}}</span>
 				</a>
 			</div>
-			<br>
-			<button class="randomButton"  v-on:click="makeRandomScales">
-			random
-			</button>
 			
-			<ol>
-				<li v-for="scale in scales">
+			<!-- <ul> -->
+				<!-- <li v-for="scale in scales"> -->
 					<!-- {{scale.root}}{{scale.type}} -->
-					
-					<select v-model="scale.root" v-on:change="isEntryComplete()">
+					<span class="startEnd start">Start</span>
+					<select v-model="scales[0].root" v-on:change="isEntryComplete()">
 						<option disabled value="root">root</option>
 						<option value = 0>C</option>
 						<option value = 1>C&#9839;</option>
@@ -53,7 +49,7 @@
 						<option value = 10>B&#9837;</option>
 						<option value = 11>B</option>
 					</select>
-					<select v-model="scale.type" v-on:change="isEntryComplete()">
+					<select v-model="scales[0].type" v-on:change="isEntryComplete()">
 						<option disabled value="">type</option>
 						<option value = "dia">diatonic</option>
 						<option value = "hm">harmonic minor</option>
@@ -63,17 +59,49 @@
 						<option value = "ac">acoustic</option>
 						<option value = "hex">hexatonic</option>
 					</select>
-					<button class = "editButton" v-on:click="addScale(scale)">+</button>
-					<button class = "editButton" v-if="scales.length>2" v-on:click="removeScale(scale)">&#128465;</button>
-				</li>
-			</ol>
+
+					<br>
+
+					<span class="startEnd end">End</span>
+					<select v-model="scales[1].root" v-on:change="isEntryComplete()">
+						<option disabled value="root">root</option>
+						<option value = 0>C</option>
+						<option value = 1>C&#9839;</option>
+						<option value = 2>D</option>
+						<option value = 3>D&#9839;</option>
+						<option value = 4>E</option>
+						<option value = 5>F</option>
+						<option value = 6>F&#9839;</option>
+						<option value = 7>G</option>
+						<option value = 8>G&#9839;</option>
+						<option value = 9>A</option>
+						<option value = 10>B&#9837;</option>
+						<option value = 11>B</option>
+					</select>
+					<select v-model="scales[1].type" v-on:change="isEntryComplete()">
+						<option disabled value="">type</option>
+						<option value = "dia">diatonic</option>
+						<option value = "hm">harmonic minor</option>
+						<option value = "HM">harmonic major</option>
+						<option value = "oct">octatonic</option>
+						<option value = "wt">whole tone</option>
+						<option value = "ac">acoustic</option>
+						<option value = "hex">hexatonic</option>
+					</select>
+					<!-- <button class = "editButton" v-on:click="addScale(scale)">+</button>
+					<button class = "editButton" v-if="scales.length>2" v-on:click="removeScale(scale)">&#128465;</button> -->
+				<!-- </li> -->
+			<!-- </ul> -->
 			
 
-			<button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
+			<!-- <button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
 			voyage
-			</button>
+			</button> -->
 			
-
+			<br><br>
+			<button class="randomButton"  v-on:click="makeRandomScales">
+			random
+			</button>
 			
 		</div>
 	</section id="arpControls">

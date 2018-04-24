@@ -15,16 +15,17 @@ var arpSpeed = 20;
 //  }
 // }).toMaster();
 
-function changeTempo(val){
+function changeTempo(val) {
 	console.log(val)
 }
-function setup(){
+
+function setup() {
 	frameRate(10)
-	canvas = createCanvas(window.innerWidth,window.innerHeight);
-	canvas.elt.style.zIndex =0
+	canvas = createCanvas(window.innerWidth, window.innerHeight);
+	canvas.elt.style.zIndex = 0
 	canvas.elt.style.position = 'fixed'
-	canvas.elt.style.left=0
-	canvas.elt.style.top=0
+	canvas.elt.style.left = 0
+	canvas.elt.style.top = 0
 	pianoRoll = new PianoRoll()
 	scaleWheel = new ScaleWheel()
 	tile = new Tile();
@@ -36,34 +37,43 @@ function setup(){
 	to = color('olive');
 }
 
-function draw(){
+function draw() {
 	background(240, 234, 234, 75)
 	// background('black')
 
 	fill('black')
-	ellipse(width / 6 * 5, 100, 20, 20);
+	// ellipse(width / 6 * 5, 100, 20, 20);
 
-	if(app.currentPath){
+	if (app.currentPath) {
+		pianoRoll.intersection = app.intersection;
 		pianoRoll.scales = app.currentPath;
 		scaleWheel.scales = app.currentPath;
 		tile.scales = app.currentPath;
 	}
-	
+
 	// fill('cyan')
 	// ellipse(width/2, height/2, 50, 50)
 	// fill('orange')
 	// ellipse(width/2, height/2+50, 50, 50)
-	tile.draw()
-	pianoRoll.drawBase()
-	pianoRoll.drawChroma()
-	scaleWheel.draw()
-	if(frameCount%arpSpeed==0&&pianoRoll.scales.length>0&&app.arpOn){
+	if (app.begun) {
+		tile.draw()
+
+		pianoRoll.draw()
+
+		scaleWheel.draw()
+	} else {
+		textSize(20)
+		textFont('verdana')
+		text('to follow you need a path, but this land has not been mapped', width/2, height/2)
+	}
+
+	if (frameCount % arpSpeed == 0 && pianoRoll.scales.length > 0 && app.arpOn) {
 		// pianoRoll.step();
 	}
 }
 
-function windowResized(){
-	resizeCanvas(window.innerWidth,window.innerHeight)
+function windowResized() {
+	resizeCanvas(window.innerWidth, window.innerHeight)
 	// canvas.elt.style.left=window.innerWidth/2-(width/2)
 	// canvas.elt.style.top=window.innerHeight/2-(height/2)
 }

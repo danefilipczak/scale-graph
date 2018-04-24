@@ -1,12 +1,47 @@
 body{
 	background-color:grey;
-	font-family:arial;
+	font-family:verdana;
+}
+
+select{
+	background-color:white;
+	font-family:verdana;
+	font-size:10px;
+}
+
+button{
+	background-color:grey;
+	color:white;
+	cursor:pointer;
 }
 
 /*.float{
 	position:fixed;
 	z-index:3;
 }*/
+
+.start{
+	border-color:rgba(0, 220, 220);
+
+}
+
+.end{
+
+	border-color:olive;
+
+}
+
+.startEnd{
+	background-color:grey;
+	border-style:solid;
+	padding-right:10px;
+	text-align:right;
+	
+	color:white;
+	display:inline-block;
+	width:20%;
+}
+
 .path{
 	cursor:pointer;
 	display:inline-block;
@@ -21,7 +56,7 @@ body{
 }
 .selectedPath{
 	border-color:olive;
-	border-bottom-color:cyan;
+	/*border-bottom-color:cyan;*/
 
 	border-style:solid;
 	/*background-color:red;*/
@@ -81,6 +116,7 @@ select{
 }
 
 .section{
+
 	z-index:2;
 	left:0px;
 	position:fixed;
@@ -102,6 +138,7 @@ select{
 }
 
 .tab{
+	cursor:pointer;
 	/*position:fixed;*/
 	/*z-index:30;*/
 	padding:15px;

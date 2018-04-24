@@ -9,7 +9,7 @@ Tile.prototype.draw = function(){
 
 	var h = window.innerWidth/this.scales.length/18;
 	textSize(h)
-
+	textFont('verdana')
 
 
 	textAlign(CENTER, CENTER)
@@ -24,7 +24,7 @@ Tile.prototype.draw = function(){
 		var lerp = lerpColor(from, to, 1 / (this.scales.length - 1) * i)
 		fill(lerp)
 
-		var w = window.innerWidth/this.scales.length/1.9
+		var w = window.innerWidth/this.scales.length/1.7
 		
 		rect(x, 0, w, h*2)
 		fill(0, 50)
