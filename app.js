@@ -4,6 +4,8 @@ window.onload = function(){
 
 var app = new Vue({
 	data: {
+		paths: null,
+		currentPath: null,
 		graph: new Graph(),
 		arpOn: false,
 		section: 'scales',
@@ -61,13 +63,21 @@ var app = new Vue({
 		// 	})
 		// 	return translation;
 		// }
+		selectPath: function(index){
+			this.currentPath = this.paths[index]
+			//console.log(index)
+		},
 		getPath: function(){
 			//var g = new Graph()
-			var path = this.graph.getPath(this.scales.slice(0, this.scales.length));
-			console.log(path)
-			pianoRoll.scales = path;
-			scaleWheel.scales = path;
-			tile.scales = path;
+			var result = this.graph.getPath(this.scales.slice(0, this.scales.length));
+
+			console.log(result)
+			this.paths = result;
+			this.currentPath=result[0];
+			//this.currentPath = result;
+			// pianoRoll.scales = path[0];
+			// scaleWheel.scales = path[0];
+			// tile.scales = path[0];
 			arp.step=0;
 			arp.chroma=0;
 			arp.scale=0;

@@ -242,6 +242,9 @@ Graph.prototype.BFS = function(start_, end_) {
 			}
 		}
 	}
+
+
+
 	var path = []
 	path.push(end)
 	var next = end.parent;
@@ -276,7 +279,9 @@ Graph.prototype.dfs = function(end, result, path){
 		return
 	}
 	end.parents.forEach((p) => {
-		this.dfs(p, result, path)
+		
+			this.dfs(p, result, path)
+		
 	})
 	// for(var i = 0; i<end.parents.length; i++){
 	// 	this.dfs(end.parents[i], result, path)
@@ -297,7 +302,7 @@ Graph.prototype.MBFS = function(start_, end_) {
 				s.parent=null;
 				s.visited=null;
 				s.parents = [];
-				s.level=null;
+				s.level=Infinity;
 			}
 
 		})
@@ -311,10 +316,11 @@ Graph.prototype.MBFS = function(start_, end_) {
 	var queue = [];
 	start.visited = true;
 	start.level=0;
-	queue.push(start);
+	queue.push(start)
+
+	//first rank them
 	while (queue.length > 0) {
-		var current = queue[0];
-		//current.visited=true;
+		var current = queue.shift()
 		if (current == end) {
 			//found it
 			break;
@@ -325,36 +331,76 @@ Graph.prototype.MBFS = function(start_, end_) {
 			if (!neighbor.visited) {
 				//neighbor.visited = true;
 				
-				if(!queue.includes(neighbor)){
+				if(neighbor.level>current.level){
+					neighbor.level = current.level+1;
+					//neighbor.parents.push(current);
 					queue.push(neighbor)
 				}
-				if(!neighbor.parents.includes(current)){
-					neighbor.addParent(current);
-				}
 				
-
 			}
 		}
-		
-		queue = queue.filter(function(n) { return n !== current })
 		current.visited=true;
-
 	}
-	// var path = []
-	// path.push(end)
-	// var next = end.parent;
-	// while (next != null) {
-	// 	path.push(next);
-	// 	next = next.parent;
-	// }
-	var result = []
-	this.dfs(end, result, []);
-
-	//null out all the parents and visited
 	
 
+	// this.scales.forEach(function(c) {
+	// 	c.forEach(function(s){
+	// 		if(s){
+	// 			console.log(s.level)
+	// 		}
+
+	// 	})
+	// 	// c.parent = null;
+	// 	// c.visited = false;
+	// })
+
+	var result = []
+	//this.getMultiPath(end, result, [])
+
+	this.buildPaths(end, result, []);
 	return result;
-	//return path.reverse()
+
+	// var result = []
+	// this.dfs(end, result, []);
+	// return result;
+
+
+}
+
+Graph.prototype.buildPaths=function(end, result, path){
+	path.push(end)
+	if(end.level==0){
+		result.push(path.reverse())
+		return
+	}
+	for(var i = 0; i<end.linkedTo.length;i++){
+		if(end.linkedTo[i].level==end.level-1){
+			this.buildPaths(end.linkedTo[i], result, path.slice())
+		}
+	}
+
+
+	// while(end.level>0){
+	// 	end.linkedTo.sort(function(a,b) {return (a.level > b.level) ? 1 : ((b.level > a.level) ? -1 : 0);} );
+	// 	path.push(end);
+	// 	console.log(end.level)
+	// 	end = end.linkedTo[0];
+	// }
+	// return path;
+}
+
+Graph.prototype.getMultiPath= function(end, result, path) {
+	path.push(end)
+	if(end.parents.length==0){
+		result.push(path)
+		return
+	}
+	for(var i = 0; i<end.parents.length; i++){
+		if(end.parents[i].level<end.level){
+			this.getMultiPath(end.parents[i], result, path)
+		}
+		
+	}
 
 }
 

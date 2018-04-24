@@ -7,6 +7,26 @@ body{
 	position:fixed;
 	z-index:3;
 }*/
+.path{
+	cursor:pointer;
+	display:inline-block;
+	/*position:inline;*/
+	padding:10px;
+	margin:5px;
+}
+.paths{
+	display:block;
+	/*background-color:red;*/
+	overflow:wrap;
+}
+.selectedPath{
+	border-color:olive;
+	border-bottom-color:cyan;
+
+	border-style:solid;
+	/*background-color:red;*/
+}
+
 #tempo{
 	width:100px;
 }
@@ -19,8 +39,10 @@ body{
 }
 
 .float{
+	/*background-color:red;*/
 	position:fixed;
 	top:33%;
+	width:30%;
 }
 
 .actionButton{

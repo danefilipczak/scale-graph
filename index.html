@@ -24,6 +24,12 @@
 	</header>
 	<section v-show="section=='scales'" id="scales" class = "section">
 		<div class="float">
+			<div class="paths">
+				<a v-for="(path, index) in paths">
+					<span class="path" v-bind:class="{ selectedPath: paths.indexOf(currentPath) == index }" v-on:click="selectPath(index)">{{index}}</span>
+				</a>
+			</div>
+			<br>
 			<button class="randomButton"  v-on:click="makeRandomScales">
 			random
 			</button>

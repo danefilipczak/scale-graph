@@ -19,6 +19,7 @@ function changeTempo(val){
 	console.log(val)
 }
 function setup(){
+	frameRate(10)
 	canvas = createCanvas(window.innerWidth,window.innerHeight);
 	canvas.elt.style.zIndex =0
 	canvas.elt.style.position = 'fixed'
@@ -32,11 +33,22 @@ function setup(){
 	// to = color(72, 61, 139);
 
 	from = color('cyan');
-	to = color('orange');
+	to = color('olive');
 }
 
 function draw(){
-	background(240, 234, 234)
+	background(240, 234, 234, 75)
+	// background('black')
+
+	fill('black')
+	ellipse(width / 6 * 5, 100, 20, 20);
+
+	if(app.currentPath){
+		pianoRoll.scales = app.currentPath;
+		scaleWheel.scales = app.currentPath;
+		tile.scales = app.currentPath;
+	}
+	
 	// fill('cyan')
 	// ellipse(width/2, height/2, 50, 50)
 	// fill('orange')
