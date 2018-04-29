@@ -7,7 +7,7 @@ var app = new Vue({
 		begun: false,
 		paths: [],
 		currentPath: null,
-		graph: new Graph(),
+		graph: new ScaleGraph(),
 		arpOn: false,
 		section: 'scales',
 		scales: [{

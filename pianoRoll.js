@@ -50,14 +50,15 @@ function PianoRoll() {
 	}
 	this.drawIntersection = function() {
 		var w = 30;
+		var length = w*(this.scales.length+2);
 		//var left = window.innerWidth / 2 - (w * this.scales.length / 2);
 		var bottom = window.innerHeight / 2 + (w * 6)
 		var weight = 5
-		fill('gold')
+		fill('grey')
 		noStroke();
 		//rectMode(CENTER, TOP)
 		for (var i = 0; i < this.intersection.length; i++) {
-			rect(window.innerWidth/2-100, bottom - this.intersection[i] * w, 200, w - weight)
+			rect(window.innerWidth/2-(length/2), (bottom - this.intersection[i] * w)+5, length, (w - weight)/2)
 		}
 	}
 	this.drawChroma = function() {
@@ -109,8 +110,9 @@ function PianoRoll() {
 		}
 	}
 	this.draw = function() {
-		this.drawIntersection()
+		
 		this.drawBase()
+		this.drawIntersection()
 		
 		this.drawChroma()
 	}

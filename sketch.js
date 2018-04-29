@@ -43,28 +43,31 @@ function draw() {
 
 	fill('black')
 	// ellipse(width / 6 * 5, 100, 20, 20);
+	try {
+		if (app.currentPath) {
+			pianoRoll.intersection = app.intersection;
+			pianoRoll.scales = app.currentPath;
+			scaleWheel.scales = app.currentPath;
+			tile.scales = app.currentPath;
+		}
 
-	if (app.currentPath) {
-		pianoRoll.intersection = app.intersection;
-		pianoRoll.scales = app.currentPath;
-		scaleWheel.scales = app.currentPath;
-		tile.scales = app.currentPath;
-	}
+		// fill('cyan')
+		// ellipse(width/2, height/2, 50, 50)
+		// fill('orange')
+		// ellipse(width/2, height/2+50, 50, 50)
+		if (app.begun) {
+			tile.draw()
 
-	// fill('cyan')
-	// ellipse(width/2, height/2, 50, 50)
-	// fill('orange')
-	// ellipse(width/2, height/2+50, 50, 50)
-	if (app.begun) {
-		tile.draw()
+			pianoRoll.draw()
 
-		pianoRoll.draw()
-
-		scaleWheel.draw()
-	} else {
-		textSize(20)
-		textFont('verdana')
-		text('to follow you need a path, but this land has not been mapped', width/2, height/2, width/2)
+			scaleWheel.draw()
+		} else {
+			textSize(20)
+			textFont('verdana')
+			text('to follow you need a path, but this land has not been mapped', width/2, height/2, width/2)
+		}
+	} catch(e){
+		
 	}
 
 	if (frameCount % arpSpeed == 0 && pianoRoll.scales.length > 0 && app.arpOn) {

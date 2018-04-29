@@ -11,13 +11,13 @@ function Scale(root_, type_) {
 	this.initChroma()
 }
 
-Scale.prototype.addParent = function(node){
-	if(node.level==this.level){
-		return;
-	}
-	this.parents.push(node);
-	this.level=node.level+1;
-}
+// Scale.prototype.addParent = function(node){
+// 	if(node.level==this.level){
+// 		return;
+// 	}
+// 	this.parents.push(node);
+// 	this.level=node.level+1;
+// }
 
 Scale.prototype.initChroma = function() {
 	var vals = {
@@ -54,31 +54,31 @@ var scaleIndices = { //for reference....
 function Graph() {
 	var self = this;
 	//scales are stored as a two dimensional array. Is this a good idea? Time will tell. 
-	this.scales = []
+	this.sets = []
 	for (var i = 0; i < 12; i++) {
-		this.scales[i] = new Array(7).fill(null) // a new array with room to hold all scales types
+		this.sets[i] = new Array(7).fill(null) // a new array with room to hold all scales types
 	}
 
 
 	this.populate = function() {
 		//populate all non-symetrical scales
 		for (var i = 0; i < 12; i++) {
-			self.scales[i][scaleIndices['dia']] = new Scale(i, 'dia')
-			self.scales[i][scaleIndices['ac']] = new Scale(i, 'ac')
-			self.scales[i][scaleIndices['HM']] = new Scale(i, 'HM')
-			self.scales[i][scaleIndices['hm']] = new Scale(i, 'hm')
+			self.sets[i][scaleIndices['dia']] = new Scale(i, 'dia')
+			self.sets[i][scaleIndices['ac']] = new Scale(i, 'ac')
+			self.sets[i][scaleIndices['HM']] = new Scale(i, 'HM')
+			self.sets[i][scaleIndices['hm']] = new Scale(i, 'hm')
 		}
 		//hexatonic has 4 transpositions
 		for (var i = 0; i < 4; i++) {
-			self.scales[i][scaleIndices['hex']] = new Scale(i, 'hex')
+			self.sets[i][scaleIndices['hex']] = new Scale(i, 'hex')
 		}
 		//octatonic has 3 transpositions
 		for (var i = 0; i < 3; i++) {
-			self.scales[i][scaleIndices['oct']] = new Scale(i, 'oct')
+			self.sets[i][scaleIndices['oct']] = new Scale(i, 'oct')
 		}
 		//whole tone has 2 transpositions
 		for (var i = 0; i < 2; i++) {
-			self.scales[i][scaleIndices['wt']] = new Scale(i, 'wt')
+			self.sets[i][scaleIndices['wt']] = new Scale(i, 'wt')
 		}
 	}
 
@@ -91,21 +91,21 @@ function Graph() {
 				diatonic
 			*/
 
-			var current = self.scales[i][scaleIndices['dia']];
+			var current = self.sets[i][scaleIndices['dia']];
 			//diatonic self reference: everything diatonic a fifth above or below
-			current.linkedTo.push(self.scales[(i + 7) % 12][scaleIndices['dia']]);
-			current.linkedTo.push(self.scales[(i + 5) % 12][scaleIndices['dia']]);
+			current.linkedTo.push(self.sets[(i + 7) % 12][scaleIndices['dia']]);
+			current.linkedTo.push(self.sets[(i + 5) % 12][scaleIndices['dia']]);
 			//one possible connection to a HM scale, its parallel
-			var parallelHM = self.scales[i][scaleIndices['HM']];
+			var parallelHM = self.sets[i][scaleIndices['HM']];
 			current.linkedTo.push(parallelHM);
 			parallelHM.linkedTo.push(current);
 			//one possible connection to a hm scale, its relative
-			var relativehm = self.scales[(i + 9) % 12][scaleIndices['hm']];
+			var relativehm = self.sets[(i + 9) % 12][scaleIndices['hm']];
 			current.linkedTo.push(relativehm);
 			relativehm.linkedTo.push(current);
 			//two possible connections to an acoustic scale : a fourth above or fourth below
-			var fourthAbove = self.scales[(i + 5) % 12][scaleIndices['ac']];
-			var fourthBelow = self.scales[(i + 7) % 12][scaleIndices['ac']]
+			var fourthAbove = self.sets[(i + 5) % 12][scaleIndices['ac']];
+			var fourthBelow = self.sets[(i + 7) % 12][scaleIndices['ac']]
 			current.linkedTo.push(fourthAbove);
 			current.linkedTo.push(fourthBelow);
 			fourthAbove.linkedTo.push(current);
@@ -115,20 +115,20 @@ function Graph() {
 				Harmonic Major
 			*/
 
-			var current = self.scales[i][scaleIndices['HM']];
+			var current = self.sets[i][scaleIndices['HM']];
 			//one connection to parallel harmonic minor
-			var parallelhm = self.scales[i][scaleIndices['hm']];
+			var parallelhm = self.sets[i][scaleIndices['hm']];
 			current.linkedTo.push(parallelhm);
 			parallelhm.linkedTo.push(current);
 			//one connection to an acoustic that lies a whole step below
-			var wholestepac = self.scales[(i + 10) % 12][scaleIndices['ac']];
+			var wholestepac = self.sets[(i + 10) % 12][scaleIndices['ac']];
 			current.linkedTo.push(wholestepac);
 			wholestepac.linkedTo.push(current);
 			//one connection to an octatonic that lies a whole step below, mod 3 because there are only 3 distinct octatonics
-			var wholestepoct = self.scales[(i + 10) % 3][scaleIndices['oct']];
+			var wholestepoct = self.sets[(i + 10) % 3][scaleIndices['oct']];
 			current.linkedTo.push(wholestepoct);
 			//one connection to a parallel hexatonic, mod 4.  because there are only 4 distinct hexatonics
-			var parallelhex = self.scales[i % 4][scaleIndices['hex']];
+			var parallelhex = self.sets[i % 4][scaleIndices['hex']];
 			current.linkedTo.push(parallelhex);
 
 
@@ -136,73 +136,73 @@ function Graph() {
 				harmonic minor
 			*/
 
-			var current = self.scales[i][scaleIndices['hm']];
+			var current = self.sets[i][scaleIndices['hm']];
 			//one connection to an acoustic that lies a fourth above
-			var fourthAbove = self.scales[(i + 5) % 12][scaleIndices['ac']];
+			var fourthAbove = self.sets[(i + 5) % 12][scaleIndices['ac']];
 			current.linkedTo.push(fourthAbove);
 			fourthAbove.linkedTo.push(current);
 			//one connection to an octatonic that lies a perfect fourth above, mod 3 because there are only 3 distinct octatonics
-			var fourthAbove = self.scales[(i + 5) % 3][scaleIndices['oct']];
+			var fourthAbove = self.sets[(i + 5) % 3][scaleIndices['oct']];
 			current.linkedTo.push(fourthAbove);
 			//one connection to a parallel hexatonic, mod 4.  because there are only 4 distinct hexatonics
-			var parallelhex = self.scales[i % 4][scaleIndices['hex']];
+			var parallelhex = self.sets[i % 4][scaleIndices['hex']];
 			current.linkedTo.push(parallelhex)
 
 			/* 
 				acoustic
 				connections to diatonic and hm/HM were taken care of in their respective sections
 			*/
-			var current = self.scales[i][scaleIndices['ac']];
+			var current = self.sets[i][scaleIndices['ac']];
 			//one connection to a parallel whole tone (mod 2 because there are only 2 distinct whole tone roms)
-			var parallelwt = self.scales[i % 2][scaleIndices['wt']];
+			var parallelwt = self.sets[i % 2][scaleIndices['wt']];
 			current.linkedTo.push(parallelwt);
 			//one connection to a parallel octatonic (mod 3 because there are only 3 distinct octatonics)
-			var paralleloct = self.scales[i % 3][scaleIndices['oct']];
+			var paralleloct = self.sets[i % 3][scaleIndices['oct']];
 			current.linkedTo.push(paralleloct);
 
 		}
 
 		//two distinct whole tones
 		for (var i = 0; i < 2; i++) {
-			var current = self.scales[i][scaleIndices['wt']];
+			var current = self.sets[i][scaleIndices['wt']];
 			//six connections to acoustic scales parallel to each of its tones (j*2 gives whole tones)
 			for (var j = 0; j < 6; j++) {
-				var acoustic = self.scales[i + (j * 2)][scaleIndices['ac']];
+				var acoustic = self.sets[i + (j * 2)][scaleIndices['ac']];
 				current.linkedTo.push(acoustic)
 			}
 		}
 
 		//three distinct octatonics
 		for (var i = 0; i < 3; i++) {
-			var current = self.scales[i][scaleIndices['oct']];
+			var current = self.sets[i][scaleIndices['oct']];
 			//four connections to parallel acoustic scales 
 			for (var j = 0; j < 4; j++) {
-				var acoustic = self.scales[i + (j * 3)][scaleIndices['ac']]
+				var acoustic = self.sets[i + (j * 3)][scaleIndices['ac']]
 				current.linkedTo.push(acoustic)
 			}
 			//four connections to hm scales, each a fifth above the transpositional root
 			for (var j = 0; j < 4; j++) {
-				var hm = self.scales[(i + 7 + (j * 3)) % 12][scaleIndices['hm']]
+				var hm = self.sets[(i + 7 + (j * 3)) % 12][scaleIndices['hm']]
 				current.linkedTo.push(hm)
 			}
 			//four connections to HM scales, each a whole step above the transpositional root
 			for (var j = 0; j < 4; j++) {
-				var HM = self.scales[(i + 2 + (j * 3)) % 12][scaleIndices['HM']]
+				var HM = self.sets[(i + 2 + (j * 3)) % 12][scaleIndices['HM']]
 				current.linkedTo.push(HM)
 			}
 		}
 
 		//four distinct hexatonics
 		for (var i = 0; i < 4; i++) {
-			var current = self.scales[i][scaleIndices['hex']];
+			var current = self.sets[i][scaleIndices['hex']];
 			//3 connections to parallel hm
 			for (var j = 0; j < 3; j++) {
-				var hm = self.scales[(i + (j * 4)) % 12][scaleIndices['hm']]
+				var hm = self.sets[(i + (j * 4)) % 12][scaleIndices['hm']]
 				current.linkedTo.push(hm)
 			}
 			//3 connections to parallel HM
 			for (var j = 0; j < 3; j++) {
-				var HM = self.scales[(i + (j * 4)) % 12][scaleIndices['HM']]
+				var HM = self.sets[(i + (j * 4)) % 12][scaleIndices['HM']]
 				current.linkedTo.push(HM)
 			}
 		}
@@ -218,85 +218,85 @@ function Graph() {
 
 
 
-Graph.prototype.BFS = function(start_, end_) {
-	//return an array of chords that represents the shortest path between two chords.
-	var start = start_;
-	var end = end_;
-	var queue = [];
-	start.visited = true;
-	queue.push(start)
-	while (queue.length > 0) {
-		var current = queue.shift()
-		if (current == end) {
-			//found it
-			break;
-		}
-		var linkedTo = current.linkedTo;
-		for (var i = 0; i < linkedTo.length; i++) {
-			var neighbor = linkedTo[i];
-			if (!neighbor.visited) {
-				neighbor.visited = true;
-				neighbor.parent = current;
-				queue.push(neighbor)
+// Graph.prototype.BFS = function(start_, end_) {
+// 	//return an array of chords that represents the shortest path between two chords.
+// 	var start = start_;
+// 	var end = end_;
+// 	var queue = [];
+// 	start.visited = true;
+// 	queue.push(start)
+// 	while (queue.length > 0) {
+// 		var current = queue.shift()
+// 		if (current == end) {
+// 			//found it
+// 			break;
+// 		}
+// 		var linkedTo = current.linkedTo;
+// 		for (var i = 0; i < linkedTo.length; i++) {
+// 			var neighbor = linkedTo[i];
+// 			if (!neighbor.visited) {
+// 				neighbor.visited = true;
+// 				neighbor.parent = current;
+// 				queue.push(neighbor)
 
-			}
-		}
-	}
-
-
-
-	var path = []
-	path.push(end)
-	var next = end.parent;
-	while (next != null) {
-		path.push(next);
-		next = next.parent;
-	}
-
-	//null out all the parents and visited
-	this.scales.forEach(function(c) {
-		c.forEach(function(s){
-			if(s){
-				s.parent=null;
-				s.visited=null;
-			}
-
-		})
-		// c.parent = null;
-		// c.visited = false;
-	})
+// 			}
+// 		}
+// 	}
 
 
-	return path.reverse()
 
-}
+// 	var path = []
+// 	path.push(end)
+// 	var next = end.parent;
+// 	while (next != null) {
+// 		path.push(next);
+// 		next = next.parent;
+// 	}
 
-Graph.prototype.dfs = function(end, result, path){
-	path.unshift(end);
-	if(end.parents.length==0){
-		//base case
-		result.push(path);
-		return
-	}
-	end.parents.forEach((p) => {
+// 	//null out all the parents and visited
+// 	this.sets.forEach(function(c) {
+// 		c.forEach(function(s){
+// 			if(s){
+// 				s.parent=null;
+// 				s.visited=null;
+// 			}
+
+// 		})
+// 		// c.parent = null;
+// 		// c.visited = false;
+// 	})
+
+
+// 	return path.reverse()
+
+// }
+
+// Graph.prototype.dfs = function(end, result, path){
+// 	path.unshift(end);
+// 	if(end.parents.length==0){
+// 		//base case
+// 		result.push(path);
+// 		return
+// 	}
+// 	end.parents.forEach((p) => {
 		
-			this.dfs(p, result, path)
+// 			this.dfs(p, result, path)
 		
-	})
-	// for(var i = 0; i<end.parents.length; i++){
-	// 	this.dfs(end.parents[i], result, path)
-	// }
+// 	})
+// 	// for(var i = 0; i<end.parents.length; i++){
+// 	// 	this.dfs(end.parents[i], result, path)
+// 	// }
 
-	path.shift();
+// 	path.shift();
 
 
-}
+// }
 
 
 Graph.prototype.MBFS = function(start_, end_) {
 	//return an array of arrays of chords that represents the shortest path between two chords.
 	// the difference between this method and BFS is that this retrieves all possible shortest paths instead of the path found first. 
-	this.scales.forEach(function(c) {
+	this.sets.forEach(function(c) {
 		c.forEach(function(s){
 			if(s){
 				s.parent=null;
@@ -343,7 +343,7 @@ Graph.prototype.MBFS = function(start_, end_) {
 	}
 	
 
-	// this.scales.forEach(function(c) {
+	// this.sets.forEach(function(c) {
 	// 	c.forEach(function(s){
 	// 		if(s){
 	// 			console.log(s.level)
@@ -389,20 +389,20 @@ Graph.prototype.buildPaths=function(end, result, path){
 	// return path;
 }
 
-Graph.prototype.getMultiPath= function(end, result, path) {
-	path.push(end)
-	if(end.parents.length==0){
-		result.push(path)
-		return
-	}
-	for(var i = 0; i<end.parents.length; i++){
-		if(end.parents[i].level<end.level){
-			this.getMultiPath(end.parents[i], result, path)
-		}
+// Graph.prototype.getMultiPath= function(end, result, path) {
+// 	path.push(end)
+// 	if(end.parents.length==0){
+// 		result.push(path)
+// 		return
+// 	}
+// 	for(var i = 0; i<end.parents.length; i++){
+// 		if(end.parents[i].level<end.level){
+// 			this.getMultiPath(end.parents[i], result, path)
+// 		}
 		
-	}
+// 	}
 
-}
+// }
 
 
 
@@ -428,15 +428,15 @@ Graph.prototype.getPath = function(array) {
 		}
 	})
 
-	var s0 = this.scales[array[0].root][scaleIndices[array[0].type]]
-	var s1 = this.scales[array[1].root][scaleIndices[array[1].type]]
+	var s0 = this.sets[array[0].root][scaleIndices[array[0].type]]
+	var s1 = this.sets[array[1].root][scaleIndices[array[1].type]]
 	return this.MBFS(s0, s1)
 }
 
 
 // g = new Graph()
-// s1 = g.scales[0][0]
-// // s2 = g.scales[1][6]
+// s1 = g.sets[0][0]
+// // s2 = g.sets[1][6]
 // console.log(s1)
 // console.log(s2)
 // console.log(g.getPath(s1, s2))
