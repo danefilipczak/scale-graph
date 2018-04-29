@@ -2,17 +2,21 @@
 <head>
 <script src="libs/Tone.min.js"></script>
 <script src="libs/p5.min.js"></script>
-<script src="tile.js"></script>
-<script src="pianoRoll.js"></script>
-<script src="scaleWheel.js"></script>
-<script src="quartals.js"></script>
-<script src="graph.js"></script>
+<!-- <script src="tile.js"></script> -->
+<!-- <script src="pianoRoll.js"></script> -->
+<!-- <script src="scaleWheel.js"></script> -->
+<!-- <script src="quartals.js"></script> -->
+<!-- <script src="graph.js"></script> -->
 <!-- <script src="scalegraph.js"></script> -->
-<script src="scale.js"></script>
+<!-- <script src="scale.js"></script> -->
 
-<script src="sketch.js"></script>
+<script type="module" src="sketch.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-<script src="app.js"></script>
+<script type="module" src="app.js"></script>
+
+<script>
+
+</script>
 <link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
@@ -20,6 +24,7 @@
 <div class="app">
 	<header id="navigation">
 		<span v-bind:class="{ selectedTab: section=='scales' }" class = "tab" v-on:click="section='scales'">macroharmony</span>
+		<span v-bind:class="{ selectedTab: section=='pent' }" class = "tab" v-on:click="section='pent'">pentatonics</span>
 		<span v-bind:class="{ selectedTab: section=='triads' }" class = "tab" v-on:click="section='triads'"> triads</span>
 		<span v-bind:class="{ selectedTab: section=='seventh chords' }" class = "tab" v-on:click="section='seventh chords'">7<sup>th</sup> chords</span>
 

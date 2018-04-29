@@ -1,4 +1,6 @@
-function ScaleWheel() {
+import { color1, color2 } from '../sketch.js'
+
+export function ScaleWheel() {
 
 
 	// this.scales = [{
@@ -62,7 +64,7 @@ function ScaleWheel() {
 				//rotate vector by some degrees /12*i
 				//draw shape
 			}
-			var lerp = lerpColor(from, to, 1 / (this.scales.length - 1) * i)
+			var lerp = lerpColor(color1, color2, 1 / (this.scales.length - 1) * i)
 			stroke(lerp)
 			noFill()
 			strokeWeight(10)

@@ -1,7 +1,7 @@
 // abstract graph class
 
 
-var scaleIndices = { //for reference.... 
+export const scaleIndices = { //for reference.... 
 	'dia': 0,
 	'ac': 1,
 	'HM': 2,
@@ -11,7 +11,7 @@ var scaleIndices = { //for reference....
 	'oct': 6,
 }
 
-class Graph {
+export class Graph {
 	constructor() {
 
 		this.sets = []

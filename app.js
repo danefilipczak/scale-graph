@@ -1,13 +1,18 @@
-window.onload = function(){
-	app.$mount('.app')
-}
+// window.onload = function(){
+// 	app.$mount('.app')
+// }
 
-var app = new Vue({
+
+import { ScaleGraph } from './modules/scale.js'
+
+
+export const app = new Vue({
 	data: {
 		begun: false,
 		paths: [],
 		currentPath: null,
-		graph: new ScaleGraph(),
+		scaleGraph: new ScaleGraph(),
+		pentGraph: new ScaleGraph(),
 		arpOn: false,
 		section: 'scales',
 		scales: [{
@@ -77,7 +82,16 @@ var app = new Vue({
 		},
 		getPath: function(){
 			//var g = new Graph()
-			var result = this.graph.getPath(this.scales.slice(0, this.scales.length));
+			switch(this.section){
+				case 'scales':
+					var result = this.scaleGraph.getPath(this.scales.slice(0, this.scales.length));
+					break;
+				case 'pent':
+					var result = this.pentGraph.getPath(this.scales.slice(0, this.scales.length));
+
+
+			}
+			
 
 			console.log(result)
 			this.paths = result;
@@ -87,9 +101,9 @@ var app = new Vue({
 			// pianoRoll.scales = path[0];
 			// scaleWheel.scales = path[0];
 			// tile.scales = path[0];
-			arp.step=0;
-			arp.chroma=0;
-			arp.scale=0;
+			// arp.step=0;
+			// arp.chroma=0;
+			// arp.scale=0;
 
 		},
 		makeRandomScales: function(){
@@ -131,3 +145,37 @@ var app = new Vue({
 	}
 })
 
+
+
+function intersection() {
+	var result = [];
+	var lists;
+
+	if (arguments.length === 1) {
+		lists = arguments[0];
+	} else {
+		lists = arguments;
+	}
+
+	for (var i = 0; i < lists.length; i++) {
+		var currentList = lists[i];
+		for (var y = 0; y < currentList.length; y++) {
+			var currentValue = currentList[y];
+			if (result.indexOf(currentValue) === -1) {
+				var existsInAll = true;
+				for (var x = 0; x < lists.length; x++) {
+					if (lists[x].indexOf(currentValue) === -1) {
+						existsInAll = false;
+						break;
+					}
+				}
+				if (existsInAll) {
+					result.push(currentValue);
+				}
+			}
+		}
+	}
+	return result;
+}
+
+app.$mount('.app')

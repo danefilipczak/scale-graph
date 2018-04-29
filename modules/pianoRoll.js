@@ -1,3 +1,5 @@
+import { color1, color2 } from '../sketch.js'
+
 function Chroma() {
 
 }
@@ -8,7 +10,7 @@ var arp = {
 	chroma: 0
 }
 
-function PianoRoll() {
+export function PianoRoll() {
 	// this.scales = [{
 	// 	root: 0,
 	// 	type: 'dia',
@@ -23,13 +25,13 @@ function PianoRoll() {
 	// 	chroma: [0, 2, 3, 5, 7, 8, 11]
 	// }]
 	this.intersection = []
-	this.autostep = true;
+	// this.aucolor2step = true;
 	this.scales = [];
 	this.name = 'ted'
 	this.drawBase = function() {
 		var w = 30;
-		var bottom = window.innerHeight / 2 + (w * 6)
-		// var bottom = window.innerHeight-window.innerHeight/6;
+		var botcolor2m = window.innerHeight / 2 + (w * 6)
+		// var botcolor2m = window.innerHeight-window.innerHeight/6;
 		//noStroke()
 		for (var i = 0; i < 12; i++) {
 			if (i == 1 || i == 3 || i == 6 || i == 8 || i == 10) {
@@ -44,7 +46,7 @@ function PianoRoll() {
 			// noFill()
 			var weight = 7;
 			strokeWeight(weight)
-			rect(window.innerWidth / 3 + margin, bottom - (i * w), window.innerWidth / 3 - margin, w - (weight))
+			rect(window.innerWidth / 3 + margin, botcolor2m - (i * w), window.innerWidth / 3 - margin, w - (weight))
 		}
 
 	}
@@ -52,13 +54,13 @@ function PianoRoll() {
 		var w = 30;
 		var length = w*(this.scales.length+2);
 		//var left = window.innerWidth / 2 - (w * this.scales.length / 2);
-		var bottom = window.innerHeight / 2 + (w * 6)
+		var botcolor2m = window.innerHeight / 2 + (w * 6)
 		var weight = 5
 		fill('grey')
 		noStroke();
-		//rectMode(CENTER, TOP)
+		//rectMode(CENTER, color2P)
 		for (var i = 0; i < this.intersection.length; i++) {
-			rect(window.innerWidth/2-(length/2), (bottom - this.intersection[i] * w)+5, length, (w - weight)/2)
+			rect(window.innerWidth/2-(length/2), (botcolor2m - this.intersection[i] * w)+5, length, (w - weight)/2)
 		}
 	}
 	this.drawChroma = function() {
@@ -67,12 +69,12 @@ function PianoRoll() {
 			//var w = window.innerWidth/4/12;
 			var w = 30;
 			var left = window.innerWidth / 2 - (w * this.scales.length / 2);
-			var bottom = window.innerHeight / 2 + (w * 6)
-			// var bottom = window.innerHeight;
+			var botcolor2m = window.innerHeight / 2 + (w * 6)
+			// var botcolor2m = window.innerHeight;
 
 			var scale = this.scales[i].chroma;
 			for (var j = 0; j < scale.length; j++) {
-				var lerp = lerpColor(from, to, 1 / (this.scales.length - 1) * i)
+				var lerp = lerpColor(color1, color2, 1 / (this.scales.length - 1) * i)
 				var weight = 5
 				strokeWeight(weight)
 
@@ -104,7 +106,7 @@ function PianoRoll() {
 				// 	fill('yellow')
 				// 	stroke('yellow')
 				// }
-				rect(left + (w * i), bottom - scale[j] * w, w - weight, w - weight)
+				rect(left + (w * i), botcolor2m - scale[j] * w, w - weight, w - weight)
 			}
 
 		}
@@ -118,7 +120,7 @@ function PianoRoll() {
 	}
 }
 
-PianoRoll.prototype.startArpegiator = function() {
+PianoRoll.prototype.startArpegiacolor2r = function() {
 	var self = this;
 	setInterval(function() {
 		self.step();
@@ -126,7 +128,7 @@ PianoRoll.prototype.startArpegiator = function() {
 }
 
 PianoRoll.prototype.step = function() {
-	if (this.autostep) {
+	if (this.aucolor2step) {
 
 
 
@@ -153,34 +155,3 @@ PianoRoll.prototype.step = function() {
 }
 
 
-
-function intersection() {
-	var result = [];
-	var lists;
-
-	if (arguments.length === 1) {
-		lists = arguments[0];
-	} else {
-		lists = arguments;
-	}
-
-	for (var i = 0; i < lists.length; i++) {
-		var currentList = lists[i];
-		for (var y = 0; y < currentList.length; y++) {
-			var currentValue = currentList[y];
-			if (result.indexOf(currentValue) === -1) {
-				var existsInAll = true;
-				for (var x = 0; x < lists.length; x++) {
-					if (lists[x].indexOf(currentValue) === -1) {
-						existsInAll = false;
-						break;
-					}
-				}
-				if (existsInAll) {
-					result.push(currentValue);
-				}
-			}
-		}
-	}
-	return result;
-}

@@ -1,4 +1,6 @@
-function Tile(){
+import { color1, color2 } from '../sketch.js'
+
+export function Tile(){
 	this.scales = []
 }
 
@@ -21,7 +23,7 @@ Tile.prototype.draw = function(){
 		var x = window.innerWidth/(this.scales.length+1)*(i+1);
 		
 		
-		var lerp = lerpColor(from, to, 1 / (this.scales.length - 1) * i)
+		var lerp = lerpColor(color1, color2, 1 / (this.scales.length - 1) * i)
 		fill(lerp)
 
 		var w = window.innerWidth/this.scales.length/1.7

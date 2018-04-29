@@ -1,4 +1,4 @@
-
+import { Graph, scaleIndices } from './graph.js'
 
 class Scale {
 	constructor(root_, type_) {
@@ -42,7 +42,7 @@ class Scale {
 
 
 
-class ScaleGraph extends Graph {
+export class ScaleGraph extends Graph {
 	constructor() {
 		super()
 		this.populate();
