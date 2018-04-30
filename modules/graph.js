@@ -9,6 +9,9 @@ export const scaleIndices = { //for reference....
 	'hex': 4,
 	'wt': 5,
 	'oct': 6,
+	'red': 0,
+	'green': 1,
+	'blue': 2
 }
 
 export class Graph {

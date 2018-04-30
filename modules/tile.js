@@ -74,7 +74,10 @@ Tile.prototype.translateChord = function(root, type){
 		'hm': 'harmonic minor',
 		'HM': 'harmonic major',
 		'hex': 'hexatonic',
-		'wt': 'whole tone'
+		'wt': 'whole tone',
+		'green': 'green',
+		'red':'red',
+		'blue':'blue'
 	}
 
 

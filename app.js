@@ -3,7 +3,12 @@
 // }
 
 
-import { ScaleGraph } from './modules/scale.js'
+import {
+	ScaleGraph
+} from './modules/scale.js'
+import {
+	PentGraph
+} from './modules/pent.js'
 
 
 export const app = new Vue({
@@ -12,7 +17,7 @@ export const app = new Vue({
 		paths: [],
 		currentPath: null,
 		scaleGraph: new ScaleGraph(),
-		pentGraph: new ScaleGraph(),
+		pentGraph: new PentGraph(),
 		arpOn: false,
 		section: 'scales',
 		scales: [{
@@ -41,20 +46,48 @@ export const app = new Vue({
 	// 	}
 	// },
 	methods: {
-		isEntryComplete: function(){
-			for(var i =0;i<this.scales.length;i++){
-				if(this.scales[i].root == null || !this.scales[i].type){
+		setSection: function(section) {
+			this.section = section;
+			this.scales = [{
+
+				root: null,
+				type: null
+
+
+			}, {
+
+				root: null,
+				type: null
+
+			}]
+
+			this.reset();
+
+			
+
+		},
+		reset: function(){
+
+			this.paths = [];
+			this.currentPath = [];
+			this.intersection = [];
+			this.isEntryComplete();
+
+		},
+		isEntryComplete: function() {
+			for (var i = 0; i < this.scales.length; i++) {
+				if (this.scales[i].root == null || !this.scales[i].type) {
 					// console.log(this.scales[i].root)
 					return false;
 				}
 			}
 			this.getPath();
-			this.begun=true;
+			this.begun = true;
 			return true;
 
 
 		},
-		toggleArpOn: function(){
+		toggleArpOn: function() {
 			this.arpOn = !this.arpOn;
 		},
 		// tranlate: function(){
@@ -71,18 +104,18 @@ export const app = new Vue({
 		// 	})
 		// 	return translation;
 		// }
-		selectPath: function(index){
+		selectPath: function(index) {
 			this.currentPath = this.paths[index]
 			var chromas = []
-			for(var i = 0; i<this.currentPath.length;i++){
+			for (var i = 0; i < this.currentPath.length; i++) {
 				chromas.push(this.currentPath[i].chroma)
 			};
 			this.intersection = intersection(chromas);
 			//console.log(index)
 		},
-		getPath: function(){
+		getPath: function() {
 			//var g = new Graph()
-			switch(this.section){
+			switch (this.section) {
 				case 'scales':
 					var result = this.scaleGraph.getPath(this.scales.slice(0, this.scales.length));
 					break;
@@ -91,11 +124,11 @@ export const app = new Vue({
 
 
 			}
-			
+
 
 			console.log(result)
 			this.paths = result;
-			
+
 			this.selectPath(0);
 			//this.currentPath = result;
 			// pianoRoll.scales = path[0];
@@ -106,26 +139,43 @@ export const app = new Vue({
 			// arp.scale=0;
 
 		},
-		makeRandomScales: function(){
-			this.randomScales()
+		makeRandomSets: function() {
+			switch(this.section){
+				case 'scales':
+					this.randomScales();
+					break;
+				case 'pent':
+					this.randomPents();
+					break;
+
+			}
+			
 			this.isEntryComplete();
 			//this.getPath()
-		}
-		,
-		randomScales: function(){
-			this.scales.forEach(function(s){
-				s.root = Math.round(Math.random()*11)
-				var items = ['oct', 'ac', 'dia', 'wt', 'hex', 'hm', 'HM']
-				s.type = items[Math.floor(Math.random()*items.length)];
-			})
-		}
-		,
-		addScale: function(previousScale){
-			//add a new scale
-			var index = this.scales.indexOf(previousScale)+1;
-			this.scales.splice(index, 0, {root:null, type:null})
 		},
-		removeScale: function(scale){
+		randomScales: function() {
+			this.scales.forEach(function(s) {
+				s.root = Math.round(Math.random() * 11)
+				var items = ['oct', 'ac', 'dia', 'wt', 'hex', 'hm', 'HM']
+				s.type = items[Math.floor(Math.random() * items.length)];
+			})
+		},
+		randomPents: function() {
+			this.scales.forEach(function(s) {
+				s.root = Math.round(Math.random() * 11)
+				var items = ['red', 'green', 'blue']
+				s.type = items[Math.floor(Math.random() * items.length)];
+			})
+		},
+		addScale: function(previousScale) {
+			//add a new scale
+			var index = this.scales.indexOf(previousScale) + 1;
+			this.scales.splice(index, 0, {
+				root: null,
+				type: null
+			})
+		},
+		removeScale: function(scale) {
 			var index = this.scales.indexOf(scale);
 			this.scales.splice(index, 1)
 		}
