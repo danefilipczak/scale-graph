@@ -77,7 +77,9 @@ Tile.prototype.translateChord = function(root, type){
 		'wt': 'whole tone',
 		'green': 'green',
 		'red':'red',
-		'blue':'blue'
+		'blue':'blue',
+		'+':'+',
+		'-':'-'
 	}
 
 

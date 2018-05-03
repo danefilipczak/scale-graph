@@ -271,6 +271,81 @@
 			
 		</div>
 	</section>
+
+
+	<section v-show="section=='triads'" id="triads" class = "section">
+		<div class="float">
+			<div class="paths" v-show="paths.length>1">
+				<a v-for="(path, index) in paths">
+					<span class="path" v-bind:class="{ selectedPath: paths.indexOf(currentPath) == index }" v-on:click="selectPath(index)">{{index+1}}</span>
+				</a>
+			</div>
+			
+			<!-- <ul> -->
+				<!-- <li v-for="scale in scales"> -->
+					<!-- {{scale.root}}{{scale.type}} -->
+					<span class="startEnd start">Start</span>
+					<select v-model="scales[0].root" v-on:change="isEntryComplete()">
+						<option disabled value="root">root</option>
+						<option value = 0>C</option>
+						<option value = 1>C&#9839;</option>
+						<option value = 2>D</option>
+						<option value = 3>D&#9839;</option>
+						<option value = 4>E</option>
+						<option value = 5>F</option>
+						<option value = 6>F&#9839;</option>
+						<option value = 7>G</option>
+						<option value = 8>G&#9839;</option>
+						<option value = 9>A</option>
+						<option value = 10>B&#9837;</option>
+						<option value = 11>B</option>
+					</select>
+					<select v-model="scales[0].type" v-on:change="isEntryComplete()">
+						<option disabled value="">type</option>
+						<option value = "+">+</option>
+						<option value = "-">-</option>
+					</select>
+
+					<br>
+
+					<span class="startEnd end">End</span>
+					<select v-model="scales[1].root" v-on:change="isEntryComplete()">
+						<option disabled value="root">root</option>
+						<option value = 0>C</option>
+						<option value = 1>C&#9839;</option>
+						<option value = 2>D</option>
+						<option value = 3>D&#9839;</option>
+						<option value = 4>E</option>
+						<option value = 5>F</option>
+						<option value = 6>F&#9839;</option>
+						<option value = 7>G</option>
+						<option value = 8>G&#9839;</option>
+						<option value = 9>A</option>
+						<option value = 10>B&#9837;</option>
+						<option value = 11>B</option>
+					</select>
+					<select v-model="scales[1].type" v-on:change="isEntryComplete()">
+						<option disabled value="">type</option>
+						<option value = "+">+</option>
+						<option value = "-">-</option>
+					</select>
+					<!-- <button class = "editButton" v-on:click="addScale(scale)">+</button>
+					<button class = "editButton" v-if="scales.length>2" v-on:click="removeScale(scale)">&#128465;</button> -->
+				<!-- </li> -->
+			<!-- </ul> -->
+			
+
+			<!-- <button class="actionButton" :disabled="!isEntryComplete()" v-on:click="getPath">
+			voyage
+			</button> -->
+			
+			<br><br>
+			<button class="randomButton"  v-on:click="makeRandomSets">
+			random
+			</button>
+			
+		</div>
+	</section>
 </div>
 </body>
 </html>

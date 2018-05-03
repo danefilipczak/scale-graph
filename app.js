@@ -12,6 +12,9 @@ import {
 import {
 	QuarGraph
 } from './modules/quar.js'
+import {
+	TriadGraph
+} from './modules/triad.js'
 
 
 export const app = new Vue({
@@ -22,6 +25,7 @@ export const app = new Vue({
 		scaleGraph: new ScaleGraph(),
 		pentGraph: new PentGraph(),
 		quarGraph: new QuarGraph(),
+		triadGraph: new TriadGraph(),
 		arpOn: false,
 		section: 'scales',
 		scales: [{
@@ -129,6 +133,9 @@ export const app = new Vue({
 				case 'quar':
 					var result = this.quarGraph.getPath(this.scales.slice(0, this.scales.length));
 					break;
+				case 'triads':
+					var result = this.triadGraph.getPath(this.scales.slice(0, this.scales.length));
+					break;
 
 
 
@@ -159,6 +166,9 @@ export const app = new Vue({
 				case 'quar':
 					this.randomQuars();
 					break;
+				case 'triads':
+					this.randomTriads();
+					break;
 
 			}
 			
@@ -183,6 +193,13 @@ export const app = new Vue({
 			this.scales.forEach(function(s) {
 				s.root = Math.round(Math.random() * 11)
 				var items = ['earth', 'air', 'fire', 'water']
+				s.type = items[Math.floor(Math.random() * items.length)];
+			})
+		},
+		randomTriads: function() {
+			this.scales.forEach(function(s) {
+				s.root = Math.round(Math.random() * 11)
+				var items = ['+','-']
 				s.type = items[Math.floor(Math.random() * items.length)];
 			})
 		},

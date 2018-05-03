@@ -15,7 +15,9 @@ export const scaleIndices = { //for reference....
 	'earth':0,
 	'air':1,
 	'fire':2,
-	'water':3
+	'water':3,
+	"+": 0,
+	'-': 1
 }
 
 export class Graph {
