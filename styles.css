@@ -51,8 +51,9 @@ button{
 }
 .paths{
 	display:block;
+	max-height:200px;
 	/*background-color:red;*/
-	overflow:wrap;
+	overflow:auto;
 }
 .selectedPath{
 	border-color:olive;

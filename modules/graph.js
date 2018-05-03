@@ -11,7 +11,11 @@ export const scaleIndices = { //for reference....
 	'oct': 6,
 	'red': 0,
 	'green': 1,
-	'blue': 2
+	'blue': 2,
+	'earth':0,
+	'air':1,
+	'fire':2,
+	'water':3
 }
 
 export class Graph {
@@ -98,4 +102,16 @@ export class Graph {
 		// }
 		// return path;
 	}
+
+}
+
+
+export function intersection(array1, array2) {
+	var total = 0;
+	for(var i = 0;i<array1.length;i++){
+		if(array2.indexOf(array1[i])!=-1){
+			total++
+		}
+	}
+	return total
 }

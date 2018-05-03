@@ -4,7 +4,7 @@ import {
 	intersection
 } from './graph.js'
 
-class Pent {
+class Quar {
 	constructor(root_, type_) {
 
 		this.root = root_;
@@ -17,9 +17,10 @@ class Pent {
 
 	initChroma() {
 		var vals = {
-			'red': [0, 1, 5, 7, 8],
-			'green': [0, 2, 5, 7, 9],
-			'blue': [0, 4, 5, 7, 11]
+			'earth': [0, 2, 5, 10],
+			'air': [0, 3, 5, 10],
+			'fire': [0, 5, 7, 10],
+			'water': [0, 5, 8, 10]
 		}
 
 		this.chroma = []
@@ -43,9 +44,7 @@ class Pent {
 				if (sets[i][j] != this && sets[i][j]!=null) {
 					//console.log(intersection)
 					// console.log(intersection(this.chroma, sets[i][j].chroma))
-					if (intersection(this.chroma, sets[i][j].chroma) ==3
-						&&!containsRuns(this.chroma, sets[i][j].chroma)
-						) {
+					if (intersection(this.chroma, sets[i][j].chroma) ==3) {
 						this.linkedTo.push(sets[i][j])
 					}
 				}
@@ -54,41 +53,8 @@ class Pent {
 	}
 }
 
-console.log('hi')
 
-function containsRuns(arr1_, arr2_){
-	let arr1 = arr1_;
-	let arr2 = arr2_;
-	let arr = arr2.concat(arr1)
-	let set = new Set(arr)
-	arr = Array.from(set).sort(function(a,b){
-		return a-b;
-	})
-
-	let seq = 0;
-	// console.log(arr.sort(function(a, b){
-	// 	return a-b
-	// }))
-	console.log(arr)
-	for(var i = 0;i<arr.length;i++){
-		if(arr[(i+1)%arr.length]==((arr[i]+1)%12)){
-			console.log(i)
-			seq++;
-		} else {
-			seq = 0
-		}
-		if(seq>=2){
-			return true
-		}
-	}
-	return false
-	//return arr
-}
-console.log(containsRuns([11, 0, 4, 6, 7],[11, 3, 4, 6, 10]))
-
-
-
-export class PentGraph extends Graph {
+export class QuarGraph extends Graph {
 	constructor() {
 		super()
 		this.populate();
@@ -99,9 +65,10 @@ export class PentGraph extends Graph {
 		// var self = this;
 		//populate all non-symetrical scales
 		for (var i = 0; i < 12; i++) {
-			this.sets[i][scaleIndices['red']] = new Pent(i, 'red')
-			this.sets[i][scaleIndices['green']] = new Pent(i, 'green')
-			this.sets[i][scaleIndices['blue']] = new Pent(i, 'blue')
+			this.sets[i][scaleIndices['earth']] = new Quar(i, 'earth')
+			this.sets[i][scaleIndices['air']] = new Quar(i, 'air')
+			this.sets[i][scaleIndices['fire']] = new Quar(i, 'fire')
+			this.sets[i][scaleIndices['water']] = new Quar(i, 'water')
 		}
 	}
 

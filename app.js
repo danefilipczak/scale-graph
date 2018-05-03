@@ -9,6 +9,9 @@ import {
 import {
 	PentGraph
 } from './modules/pent.js'
+import {
+	QuarGraph
+} from './modules/quar.js'
 
 
 export const app = new Vue({
@@ -18,6 +21,7 @@ export const app = new Vue({
 		currentPath: null,
 		scaleGraph: new ScaleGraph(),
 		pentGraph: new PentGraph(),
+		quarGraph: new QuarGraph(),
 		arpOn: false,
 		section: 'scales',
 		scales: [{
@@ -121,6 +125,11 @@ export const app = new Vue({
 					break;
 				case 'pent':
 					var result = this.pentGraph.getPath(this.scales.slice(0, this.scales.length));
+					break;
+				case 'quar':
+					var result = this.quarGraph.getPath(this.scales.slice(0, this.scales.length));
+					break;
+
 
 
 			}
@@ -147,6 +156,9 @@ export const app = new Vue({
 				case 'pent':
 					this.randomPents();
 					break;
+				case 'quar':
+					this.randomQuars();
+					break;
 
 			}
 			
@@ -164,6 +176,13 @@ export const app = new Vue({
 			this.scales.forEach(function(s) {
 				s.root = Math.round(Math.random() * 11)
 				var items = ['red', 'green', 'blue']
+				s.type = items[Math.floor(Math.random() * items.length)];
+			})
+		},
+		randomQuars: function() {
+			this.scales.forEach(function(s) {
+				s.root = Math.round(Math.random() * 11)
+				var items = ['earth', 'air', 'fire', 'water']
 				s.type = items[Math.floor(Math.random() * items.length)];
 			})
 		},
