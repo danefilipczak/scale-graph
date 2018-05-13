@@ -72,7 +72,7 @@ function draw() {
 	} else {
 		textSize(20)
 		textFont('verdana')
-		text('to follow you need a path, but this land has not been mapped', width/2, height/2, width/2)
+		text('to follow you need a path, but this land has not been mapped...', width/2, height/2, width/2)
 	}
 	 
 

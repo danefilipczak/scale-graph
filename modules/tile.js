@@ -1,15 +1,18 @@
-import { color1, color2 } from '../sketch.js'
+import {
+	color1,
+	color2
+} from '../sketch.js'
 
-export function Tile(){
+export function Tile() {
 	this.scales = []
 }
 
 
-Tile.prototype.draw = function(){
+Tile.prototype.draw = function() {
 	noStroke()
 	fill('black')
 
-	var h = window.innerWidth/this.scales.length/18;
+	var h = window.innerWidth / this.scales.length / 18;
 	textSize(h)
 	textFont('verdana')
 
@@ -17,20 +20,20 @@ Tile.prototype.draw = function(){
 	textAlign(CENTER, CENTER)
 	rectMode(CENTER)
 	push()
-	translate(0, window.innerHeight/6)
-	for(var i = 0; i<this.scales.length;i++){
-		
-		var x = window.innerWidth/(this.scales.length+1)*(i+1);
-		
-		
+	translate(0, window.innerHeight / 6)
+	for (var i = 0; i < this.scales.length; i++) {
+
+		var x = window.innerWidth / (this.scales.length + 1) * (i + 1);
+
+
 		var lerp = lerpColor(color1, color2, 1 / (this.scales.length - 1) * i)
 		fill(lerp)
 
-		var w = window.innerWidth/this.scales.length/1.7
-		
-		rect(x, 0, w, h*2)
+		var w = window.innerWidth / this.scales.length / 1.7
+
+		rect(x, 0, w, h * 2)
 		fill(0, 50)
-		rect(x, 0, w, h*2)
+		rect(x, 0, w, h * 2)
 
 		// // console.log(lerp)
 		// if((lerp.levels[0]+lerp.levels[1]+lerp.levels[2])/3<127){
@@ -40,7 +43,7 @@ Tile.prototype.draw = function(){
 		// }
 		fill('white')
 		text(this.translateChord(this.scales[i].root, this.scales[i].type), x, 0)
-		
+
 	}
 	pop()
 	// text('love u ', 120, 100)
@@ -49,14 +52,14 @@ Tile.prototype.draw = function(){
 	this.drawArrows()
 }
 
-Tile.prototype.drawArrows = function(){
-	var h = window.innerWidth/this.scales.length/15;
+Tile.prototype.drawArrows = function() {
+	var h = window.innerWidth / this.scales.length / 15;
 	textSize(h)
 	fill(100)
 	push()
-	translate(0, window.innerHeight/6)
-	for(var i = 0; i<this.scales.length-1; i++){
-		var x = window.innerWidth/(this.scales.length+1)*(i+1.5);
+	translate(0, window.innerHeight / 6)
+	for (var i = 0; i < this.scales.length - 1; i++) {
+		var x = window.innerWidth / (this.scales.length + 1) * (i + 1.5);
 		// rect(x, 0, 10, 10);
 		text('\u2194', x, 0)
 
@@ -64,7 +67,7 @@ Tile.prototype.drawArrows = function(){
 	pop()
 }
 
-Tile.prototype.translateChord = function(root, type){
+Tile.prototype.translateChord = function(root, type) {
 	var roots = ['C', 'D\u266D', 'D', 'E\u266D', 'E', 'F', 'F\u266F', 'G', 'A\u266D', 'A', 'B\u266D', 'B'];
 
 	var types = {
@@ -76,10 +79,22 @@ Tile.prototype.translateChord = function(root, type){
 		'hex': 'hexatonic',
 		'wt': 'whole tone',
 		'green': 'green',
-		'red':'red',
-		'blue':'blue',
-		'+':'+',
-		'-':'-'
+		'red': 'red',
+		'blue': 'blue',
+		'+': '+',
+		'-': '-',
+		'0+': '0+',
+		'0-': '0-',
+		'1-':'1-',
+		'2+': '2+',
+		'3-':'3-',
+		'3+':'3+',
+		'6-': '6-',
+		'6+': '6+',
+		'7-': '7-',
+		'8+': '8+',
+		'9-': '9-',
+		'9+': '9+'
 	}
 
 

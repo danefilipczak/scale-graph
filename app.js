@@ -15,6 +15,9 @@ import {
 import {
 	TriadGraph
 } from './modules/triad.js'
+import {
+	AltGraph
+} from './modules/alt.js'
 
 
 export const app = new Vue({
@@ -26,6 +29,7 @@ export const app = new Vue({
 		pentGraph: new PentGraph(),
 		quarGraph: new QuarGraph(),
 		triadGraph: new TriadGraph(),
+		altGraph: new AltGraph(),
 		arpOn: false,
 		section: 'scales',
 		scales: [{
@@ -136,6 +140,8 @@ export const app = new Vue({
 				case 'triads':
 					var result = this.triadGraph.getPath(this.scales.slice(0, this.scales.length));
 					break;
+				case 'alt':
+					var result = this.altGraph.getPath(this.scales.slice(0, this.scales.length))
 
 
 

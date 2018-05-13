@@ -17,8 +17,21 @@ export const scaleIndices = { //for reference....
 	'fire':2,
 	'water':3,
 	"+": 0,
-	'-': 1
+	'-': 1,
+	'0+': 0,
+	'0-': 1,
+	'1-': 2,
+	'2+': 3,
+	'3-': 4,
+	'3+': 5, 
+	'6-': 6, 
+	'6+': 7,
+	'7-': 8,
+	'8+': 9,
+	'9-': 10, 
+	'9+': 11
 }
+
 
 export class Graph {
 	constructor() {
